@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
 	<modelVersion>4.0.0</modelVersion>
@@ -70,18 +71,18 @@
 			<version>${mysql.version}</version>
 		</dependency>
 
-      	<!-- Joda-Time -->		
+		<!-- Joda-Time -->
 		<dependency>
-  			<groupId>joda-time</groupId>
-  			<artifactId>joda-time</artifactId>
-  			<version>${joda-time.version}</version>
-  		</dependency>
-		
-		<!-- To map JodaTime with database type -->  		
-  		<dependency>
-    		<groupId>org.jadira.usertype</groupId>
-    		<artifactId>usertype.core</artifactId>
-    		<version>3.0.0.CR1</version>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>${joda-time.version}</version>
+		</dependency>
+
+		<!-- To map JodaTime with database type -->
+		<dependency>
+			<groupId>org.jadira.usertype</groupId>
+			<artifactId>usertype.core</artifactId>
+			<version>3.0.0.CR1</version>
 		</dependency>
 
 		<!-- Servlet+JSP+JSTL -->
@@ -96,9 +97,9 @@
 			<version>2.3.1</version>
 		</dependency>
 		<dependency>
-		    <groupId>javax.servlet</groupId>
-		    <artifactId>jstl</artifactId>
-		    <version>1.2</version>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
 		</dependency>
 		<dependency>
 			<groupId>com.toptier</groupId>
@@ -114,6 +115,12 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-dbcp2</artifactId>
+			<version>2.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
