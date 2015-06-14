@@ -1,6 +1,9 @@
 package com.toptier.springmvc.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -8,29 +11,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.toptier.core.model.Agent;
 import com.toptier.core.model.Employee;
-import com.toptier.service.EmployeeService;
+import com.toptier.service.ProductService;
 
 @Controller
 @RequestMapping("/")
 public class AppController {
 
 	@Autowired
-	EmployeeService service;
+	ProductService productService;
 
 	/*
 	 * This method will list all existing employees.
 	 */
-	@RequestMapping(value = { "/", "/list" }, method = RequestMethod.GET)
-	public String listEmployees(ModelMap model) {
-
-		List<Employee> employees = service.findAllEmployees();
-		model.addAttribute("employees", employees);
-		return "allemployees";
+	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
+	public ModelAndView showShoppingHomepage(ModelMap model) {
+        return new ModelAndView("home.index");
 	}
 
 	/*
@@ -38,8 +39,8 @@ public class AppController {
 	 */
 	@RequestMapping(value = { "/new" }, method = RequestMethod.GET)
 	public String newEmployee(ModelMap model) {
-		Employee employee = new Employee();
-		model.addAttribute("employee", employee);
+//		Employee employee = new Employee();
+//		model.addAttribute("employee", employee);
 		return "registration";
 	}
 
@@ -51,24 +52,16 @@ public class AppController {
 	public String saveEmployee(@Valid Employee employee, BindingResult result,
 			ModelMap model) {
 
-		if (result.hasErrors()) {
-			return "registration";
-		}
-
-		service.saveEmployee(employee);
-
-		model.addAttribute("success", "Employee " + employee.getName()
-				+ " registered successfully");
+//		if (result.hasErrors()) {
+//			return "registration";
+//		}
+//
+//		service.saveEmployee(employee);
+//
+//		model.addAttribute("success", "Employee " + employee.getName()
+//				+ " registered successfully");
 		return "success";
 	}
 
-	/*
-	 * This method will delete an employee by it's SSN value.
-	 */
-	@RequestMapping(value = { "/delete-{ssn}-employee" }, method = RequestMethod.GET)
-	public String deleteEmployee(@PathVariable String ssn) {
-		service.deleteEmployeeBySsn(ssn);
-		return "redirect:/list";
-	}
 
 }
