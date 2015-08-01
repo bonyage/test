@@ -5,10 +5,10 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.toptier</groupId>
-	<artifactId>oz180-web-admin</artifactId>
+	<artifactId>adminWeb</artifactId>
 	<packaging>war</packaging>
 	<version>1.0.0</version>
-	<name>oz180 web admin</name>
+	<name>oz180 admin web</name>
 
 	<properties>
 		<springframework.version>4.0.6.RELEASE</springframework.version>
@@ -139,13 +139,13 @@
 					<version>2.4</version>
 					<configuration>
 						<warSourceDirectory>src/main/webapp</warSourceDirectory>
-						<warName>oz180-web-admin</warName>
+						<warName>admin-web</warName>
 						<failOnMissingWebXml>false</failOnMissingWebXml>
 					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
-		<finalName>oz180-web-admin</finalName>
+		<finalName>admin-web</finalName>
 	</build>
 </project>
 

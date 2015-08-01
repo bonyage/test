@@ -1,8 +1,8 @@
-<hr />
-<div class="span-1 prepend-3">&nbsp;</div>
-<div class="span-16 last">
-	<p>
-		<b>TechZoo - A Zoo of Technology</b> 
-		( All rights Reserved)
-	</p>
-</div>
+	<footer>
+
+		<p>
+			<span style="text-align:left;float:left">&copy; 2013 <a href="http://jiji262.github.io/Bootstrap_Metro_Dashboard/" alt="Bootstrap_Metro_Dashboard">Bootstrap Metro Dashboard</a></span>
+			
+		</p>
+
+	</footer>
