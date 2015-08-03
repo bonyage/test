@@ -2,6 +2,7 @@
 <beans xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:beans="http://www.springframework.org/schema/beans" 
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
@@ -19,9 +20,19 @@
 		up static resources in the ${webappRoot}/resources directory -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
- 	<bean id="viewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"/>
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<beans:bean
+				class="com.toptier.admin.mvc.interceptor.AuthenticationInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 
-	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" />
+
+	<bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<property name="definitions">
 			<list>
 				<value>/WEB-INF/layouts/layouts.xml</value>
@@ -29,9 +40,9 @@
 			</list>
 		</property>
 	</bean>
-	
 
-	<context:component-scan base-package="com.toptier.admin" />
+
+	<context:component-scan base-package="com.toptier" />
 
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
 		destroy-method="close">

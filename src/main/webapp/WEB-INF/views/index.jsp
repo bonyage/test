@@ -1,3 +1,13 @@
+			<ul class="breadcrumb">
+			
+				<li>
+					<i class="icon-home"></i>
+					<a href="index.html">Home</a> 
+					<i class="icon-angle-right"></i>
+				</li>
+				<li><a href="#">Dashboard</a></li>
+			</ul>
+			
 			<div class="row-fluid">
 				
 				<div class="span8 widget blue" onTablet="span7" onDesktop="span8">
@@ -13,21 +23,6 @@
                         <li><span class="sparkLineStats3"></span> 
                             Pageviews: 
                             <span class="number">781</span>
-                        </li>
-                        <li><span class="sparkLineStats4"></span>
-                            Pages / Visit: 
-                            <span class="number">2,19</span>
-                        </li>
-                        <li><span class="sparkLineStats5"></span>
-                            Avg. Visit Duration: 
-                            <span class="number">00:02:58</span>
-                        </li>
-                        <li><span class="sparkLineStats6"></span>
-                            Bounce Rate: <span class="number">59,83%</span>
-                        </li>
-                        <li><span class="sparkLineStats7"></span>
-                            % New Visits: 
-                            <span class="number">70,79%</span>
                         </li>
                         <li><span class="sparkLineStats8"></span>
                             % Returning Visitor: 

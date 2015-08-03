@@ -8,7 +8,7 @@
 	
 	<!-- start: Meta -->
 	<meta charset="utf-8">
-	<title>TopTier oz180.com admin web</title>
+	<title>oz180 admin web</title>
 	<meta name="description" content="Admin Dashboard">
 	<meta name="author" content="">
 	<meta name="keyword" content="">
@@ -38,7 +38,7 @@
 	<![endif]-->
 		
 	<!-- start: Favicon -->
-	<link rel="shortcut icon" href="img/favicon.ico">
+	<link rel="shortcut icon" href="<c:url value="/resources/img/favicon.ico"/>">
 	<!-- end: Favicon -->
 				
 </head>
@@ -69,11 +69,7 @@
 			<!-- start: Content -->
 			<div id="content" class="span10">
 			
-			
-			<tiles:insertAttribute name="breadcrumb" />				
 			<tiles:insertAttribute name="body" />				
-			
-       
 
 	</div><!--/.fluid-container-->
 	

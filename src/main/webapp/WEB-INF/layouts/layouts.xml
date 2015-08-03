@@ -4,12 +4,13 @@
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 
-    <definition name="defaultTemplate" template="/WEB-INF/views/template/SiteTemplate.jsp">
+    <definition name="defaultTemplate" template="/WEB-INF/views/template/template.jsp">
 		<put-attribute name="header" 	value="/WEB-INF/views/template/header.jsp" />
-		<put-attribute name="mainMenu" 		value="/WEB-INF/views/template/mainMenu.jsp" />
-		<put-attribute name="breadcrumb" 		value="/WEB-INF/views/template/breadcrumb.jsp" />		
+		<put-attribute name="mainMenu" 	value="/WEB-INF/views/template/mainMenu.jsp" />
 		<put-attribute name="body" 		value="" />
 		<put-attribute name="footer" 	value="/WEB-INF/views/template/footer.jsp" />
 	</definition>
+	
+	
 	
 </tiles-definitions>
