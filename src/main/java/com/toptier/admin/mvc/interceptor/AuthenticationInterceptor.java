@@ -23,7 +23,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 			LoginForm userData = (LoginForm) request.getSession().getAttribute(
 					"LOGGEDIN_USER");
 			if (userData == null) {
-				String cxt = request.getServletContext().getContextPath();
+				String cxt = request.getSession().getServletContext().getContextPath();
 				response.sendRedirect(cxt + "/login");
 				return false;
 			}
