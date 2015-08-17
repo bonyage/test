@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<b:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:b="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+    <http pattern="/resources/**" security="none"/>
+    <http pattern="/login" security="none"/>
+
+    <http auto-config="true" use-expressions="true">
+        <intercept-url pattern="/product/**" access="hasAnyRole('ROLE_PRODUCT')"/>
+        <intercept-url pattern="/pricing/**" access="hasAnyRole('ROLE_PRODUCT')"/>
+        <intercept-url pattern="/order/**" access="hasAnyRole('ROLE_ORDER_MANAGEMENT')"/>
+        <intercept-url pattern="/inventory/**" access="hasAnyRole('ROLE_INVENTORY')"/>
+        <intercept-url pattern="/administration/**" access="hasAnyRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/agent/**" access="hasAnyRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/**" access="isAuthenticated()"/>
+        <access-denied-handler error-page="/403" />
+        <form-login
+                login-page="/login"
+                default-target-url="/"
+                username-parameter="username"
+                password-parameter="password"
+                authentication-failure-url="/login?error"
+                />
+        <logout logout-success-url="/login.html" />
+    </http>
+
+    <b:bean id="encoder" class="org.springframework.security.crypto.password.NoOpPasswordEncoder"/>
+
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider user-service-ref="userDetailsService">
+            <password-encoder ref="encoder"/>
+        </authentication-provider>
+    </authentication-manager>
+
+</b:beans>
