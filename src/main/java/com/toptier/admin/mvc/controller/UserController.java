@@ -1,29 +1,30 @@
 package com.toptier.admin.mvc.controller;
 
+import com.toptier.core.model.User;
 import com.toptier.dto.UserDto;
+import com.toptier.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import com.toptier.service.AdministrationService;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import com.toptier.core.model.User;
+
 import java.util.List;
 /**
  * Created by hng on 8/18/15.
  */
 @Controller
 @RequestMapping("/administration")
-public class AdminstrationController {
+public class UserController {
 
     @Autowired
-    private AdministrationService administrationService;
+    private UserService userService;
 
     @RequestMapping(value = { "/users" }, method = RequestMethod.GET)
     public ModelAndView users(ModelMap model) {
-        List<User> users = administrationService.loadAllUsers();
+        List<User> users = userService.loadAllUsers();
         ModelAndView mav = new ModelAndView("administration.users");
         mav.addObject("users",users);
         return mav;
@@ -38,7 +39,7 @@ public class AdminstrationController {
 
     @RequestMapping(value = { "/addUser" }, method = RequestMethod.POST)
     public ModelAndView saveUser(@ModelAttribute("userForm") UserDto user) {
-        administrationService.saveUser(user);
+        userService.saveUser(user);
         ModelAndView mav = new ModelAndView("redirect:users");
         return mav;
     }

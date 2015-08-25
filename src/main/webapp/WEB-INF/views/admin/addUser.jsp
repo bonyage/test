@@ -15,7 +15,7 @@
   <div class="box span12">
     <div class="box-header" data-original-title>
       <h2>
-        <i class="halflings-icon user"></i><span class="break"></span>Add User
+        <i class="halflings-icon user"></i><span class="break"></span><spring:message code="admin.user.breadcrumb"/>
       </h2>
 
       <div class="box-icon">
@@ -26,63 +26,64 @@
 
       <form:form class="form-horizontal" method="post" modelAttribute="userForm" action="${pageContext.request.contextPath}/administration/addUser">
         <div class="control-group">
-          <label class="control-label" for="name">Name</label>
+          <label class="control-label" for="name"><spring:message code="user.name.head"/></label>
           <div class="controls">
             <form:input type="text" path="name" id="name" placeholder="Name"/>
           </div>
         </div>
         <div class="control-group">
-          <label class="control-label" for="phone">Phone</label>
+          <label class="control-label" for="phone"><spring:message code="user.mobile.head"/></label>
           <div class="controls">
             <form:input type="tel" path="phone" id="phone" placeholder="Phone"/>
           </div>
         </div>
         <div class="control-group">
-          <label class="control-label" for="email">Email</label>
+          <label class="control-label" for="email"><spring:message code="user.email.head"/></label>
           <div class="controls">
             <form:input type="email" path="email" id="email" placeholder="Email"/>
           </div>
         </div>
         <div class="control-group">
-          <label class="control-label" for="username">Username</label>
+          <label class="control-label" for="username"><spring:message code="user.username.head"/></label>
           <div class="controls">
             <form:input type="text" path="username" id="username" placeholder="Username"/>
           </div>
         </div>
         <div class="control-group">
-          <label class="control-label" for="password">Password</label>
+          <label class="control-label" for="password"><spring:message code="user.password.head"/></label>
           <div class="controls">
             <form:password path="password" id="password" placeholder="Password"/>
           </div>
         </div>
         <div class="control-group">
-          <label class="control-label" for="active">Active?</label>
+          <label class="control-label" for="active"><spring:message code="user.status.head"/>?</label>
           <div class="controls">
             <form:checkbox path="active" id="active"/>
           </div>
         </div>
 
         <div class="control-group">
-          <label class="control-label">Roles</label>
+          <label class="control-label"><spring:message code="user.roles.head"/></label>
           <div class="controls">
             <label class="checkbox-inline">
-              <form:checkbox path="roles" value="ROLE_ADMIN"/> Administrator role
+              <form:checkbox path="roles" value="ROLE_ADMIN"/> <spring:message code="user.roles.admin"/>
             </label>
             <label class="checkbox-inline">
-              <form:checkbox path="roles" value="ROLE_ORDER_MANAGEMENT"/> Order management role
+              <form:checkbox path="roles" value="ROLE_ORDER_MANAGEMENT"/> <spring:message code="user.roles.order"/>
             </label>
             <label class="checkbox-inline">
-              <form:checkbox path="roles" value="ROLE_PRODUCT"/> Product role
+              <form:checkbox path="roles" value="ROLE_PRODUCT"/> <spring:message code="user.roles.product"/>
             </label>
             <label class="checkbox-inline">
-              <form:checkbox path="roles" value="ROLE_INVENTORY"/> Inventory role
+              <form:checkbox path="roles" value="ROLE_INVENTORY"/> <spring:message code="user.roles.inventory"/>
             </label>
           </div>
         </div>
 
         <div class="control-group">
           <div class="controls">
-            <form:button type="submit" class="btn btn-primary">Save</form:button>
+            <form:button type="submit" class="btn btn-primary"><spring:message code="user.save"/></form:button>
+            <a href="${pageContext.request.contextPath}/administration/users" class="btn active"><i class="icon-chevron-left"></i> <spring:message code="user.back"/></a>
           </div>
         </div>
       </form:form>

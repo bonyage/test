@@ -25,12 +25,12 @@
             <table class="table table-striped table-bordered bootstrap-datatable datatable">
                 <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Mobile</th>
-                    <th>E-mail</th>
-                    <th>Username</th>
-                    <th>Roles</th>
-                    <th>Status</th>
+                    <th><spring:message code="user.name.head"/></th>
+                    <th><spring:message code="user.mobile.head"/></th>
+                    <th><spring:message code="user.email.head"/></th>
+                    <th><spring:message code="user.username.head"/></th>
+                    <th><spring:message code="user.roles.head"/></th>
+                    <th><spring:message code="user.status.head"/></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -47,10 +47,10 @@
                         </td>
                         <td>
                             <c:if test="${user.active}">
-                                <c:out value="Active"/>
+                                <spring:message code="user.status.active"/>
                             </c:if>
                             <c:if test="${!user.active}">
-                                <c:out value="Inactive"/>
+                                <spring:message code="user.status.inactive"/>
                             </c:if>
                         </td>
                     </tr>
