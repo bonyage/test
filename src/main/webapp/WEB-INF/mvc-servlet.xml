@@ -12,7 +12,7 @@
 		infrastructure -->
 
 	<context:property-placeholder location="classpath:application.properties" />
-	
+
 	<bean id="messageSource"
         class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <property name="basename" value="classpath:messages" />
@@ -30,15 +30,6 @@
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
-
- 	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/**" />
-			<mvc:exclude-mapping path="/resources/**"/>			
-			<beans:bean
-				class="com.toptier.admin.mvc.interceptor.AuthenticationInterceptor" />
-		</mvc:interceptor>
-	</mvc:interceptors>
 
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" />
@@ -83,12 +74,12 @@
 
 	<tx:annotation-driven />
 	<bean name="auditInterceptor" class="com.toptier.admin.mvc.interceptor.AuditInterceptor" />
-	
-	
+
+
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 		<property name="entityInterceptor" ref="auditInterceptor"/>
-		
+
 	</bean>
 </beans>

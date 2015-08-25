@@ -3,15 +3,12 @@
 	"-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
 	"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
-	
 	<definition name="home.login" template="/WEB-INF/views/login.jsp">
 	</definition>
-	
-	
+
 	<definition name="home.dash" extends="defaultTemplate">
 	    <put-attribute name="body"	value="/WEB-INF/views/index.jsp" />
 	</definition>
-
 	<definition name="product.list" extends="defaultTemplate">
 	    <put-attribute name="body"	value="/WEB-INF/views/product/productList.jsp" />
 	</definition>
@@ -19,7 +16,6 @@
 	<definition name="agent.list" extends="defaultTemplate">
 	    <put-attribute name="body"	value="/WEB-INF/views/agent/agentList.jsp" />
 	</definition>
-
 	<definition name="inventory.list" extends="defaultTemplate">
 	    <put-attribute name="body"	value="/WEB-INF/views/inventory/inventoryList.jsp" />
 	</definition>
@@ -31,5 +27,16 @@
 	<definition name="order.list" extends="defaultTemplate">
 	    <put-attribute name="body"	value="/WEB-INF/views/order/orderList.jsp" />
 	</definition>
-	
+
+	<definition name="administration.users" extends="defaultTemplate">
+		<put-attribute name="body"	value="/WEB-INF/views/admin/users.jsp" />
+	</definition>
+
+	<definition name="administration.addUser" extends="defaultTemplate">
+		<put-attribute name="body"	value="/WEB-INF/views/admin/addUser.jsp" />
+	</definition>
+
+	<definition name="403" extends="defaultTemplate">
+		<put-attribute name="body"	value="/WEB-INF/views/403.jsp" />
+	</definition>
 </tiles-definitions>

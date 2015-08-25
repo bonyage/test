@@ -72,7 +72,7 @@ body {
 					</div>
 					<h2>Login to your account</h2>
 					<c:url var="home" value="/" />
-					<form class="form-horizontal" action="${home}/login" method="post">
+						<form class="form-horizontal" name="loginForm" action="<c:url value='j_spring_security_check' />" method="POST">
 						<fieldset>
 
 							<div class="input-prepend" title="Username">
