@@ -1,0 +1,10 @@
+# git
+target/
+.gitignore
+
+# IntelliJ
+*.iml
+
+# OS X
+.DS_Store
+
