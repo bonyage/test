@@ -26,7 +26,7 @@
 				class="table table-striped table-bordered bootstrap-datatable datatable">
 				<thead>
 					<tr>
-						<th>Name</th>
+						<th>Product Name</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -37,4 +37,7 @@
 				</c:forEach>
 				</tbody>
 			</table>
-		</div>
+            <a href="new" class="btn btn-success">Add New Product</a>
+        </div>
+    </div>
+</div>
