@@ -27,12 +27,21 @@
 				<thead>
 					<tr>
 						<th>Product Name</th>
+						<th>Status</th>
+						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
-				<c:forEach var="ele" items="${products}">
+				<c:forEach var="product" items="${allProducts}">
 					<tr>
-						<td><c:out value="${ele.product.name }"/></td>
+						<td><c:out value="${product.name}"/></td>
+						<td>
+							<c:choose>
+								<c:when test="${product.active}">Active</c:when>
+								<c:otherwise>Archived</c:otherwise>
+							</c:choose>
+						</td>
+						<td><a href="${pageContext.request.contextPath}/product/${product.id}">Edit</a></td>
 					</tr>
 				</c:forEach>
 				</tbody>
