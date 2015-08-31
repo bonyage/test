@@ -12,7 +12,11 @@
 	<definition name="product.list" extends="defaultTemplate">
 	    <put-attribute name="body"	value="/WEB-INF/views/product/productList.jsp" />
 	</definition>
-	
+
+    <definition name="product.form" extends="defaultTemplate">
+        <put-attribute name="body"	value="/WEB-INF/views/product/productForm.jsp" />
+    </definition>
+
 	<definition name="agent.list" extends="defaultTemplate">
 	    <put-attribute name="body"	value="/WEB-INF/views/agent/agentList.jsp" />
 	</definition>
