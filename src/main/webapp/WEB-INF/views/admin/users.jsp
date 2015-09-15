@@ -31,6 +31,7 @@
                     <th><spring:message code="user.username.head"/></th>
                     <th><spring:message code="user.roles.head"/></th>
                     <th><spring:message code="user.status.head"/></th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -53,11 +54,12 @@
                                 <spring:message code="user.status.inactive"/>
                             </c:if>
                         </td>
+                        <td><a href="<c:url value='user/${user.userName}'/>" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span>Edit</a> </td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
         </div>
         <div class="box-content">
-            <a class="btn btn-primary" href="${pageContext.request.contextPath}/administration/addUser">New user</a>
+            <a class="btn btn-primary" href="${pageContext.request.contextPath}/administration/user/new">New user</a>
         </div>
