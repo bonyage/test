@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <ul class="breadcrumb">
@@ -24,7 +23,7 @@
     </div>
     <div class="box-content">
 
-      <form:form class="form-horizontal" method="post" modelAttribute="userForm" action="${pageContext.request.contextPath}/administration/addUser">
+        <form:form class="form-horizontal" method="post" modelAttribute="user" commandName="user" action="${pageContext.request.contextPath}/administration/user/new">
         <div class="control-group">
           <label class="control-label" for="name"><spring:message code="user.name.head"/></label>
           <div class="controls">
@@ -82,7 +81,13 @@
 
         <div class="control-group">
           <div class="controls">
-            <form:button type="submit" class="btn btn-primary"><spring:message code="user.save"/></form:button>
+            <c:if test="${!empty user.username}">
+              <form:button type="submit" class="btn btn-primary"><spring:message code="user.edit"/></form:button>
+            </c:if>
+            <c:if test="${empty user.username}">
+              <form:button type="submit" class="btn btn-primary"><spring:message code="user.save"/></form:button>
+            </c:if>
+
             <a href="${pageContext.request.contextPath}/administration/users" class="btn active"><i class="icon-chevron-left"></i> <spring:message code="user.back"/></a>
           </div>
         </div>

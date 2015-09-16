@@ -25,7 +25,7 @@
                 password-parameter="password"
                 authentication-failure-url="/login?error"
                 />
-        <logout logout-success-url="/login.html" />
+        <logout invalidate-session="true" />
     </http>
 
     <b:bean id="encoder" class="org.springframework.security.crypto.password.NoOpPasswordEncoder"/>
