@@ -4,7 +4,7 @@
 <head>
     <title>Upload File Request Page</title>
     <!-- Bootstrap styles -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-3.2.0.min.css">
     <%--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">--%>
     <!-- Generic page styles -->
     <link rel="stylesheet" href="jquery-file-upload/css/style.css">
@@ -18,6 +18,8 @@
   <%--Name: <input type="text" name="name"><br /> <br />--%>
   <%--<input type="submit" value="Upload"> Press here to upload the file!--%>
 <%--</form>--%>
+
+<div id="imageKey"></div>
 
 <!-- The container for the uploaded files -->
 <div id="files" class="files">
@@ -42,15 +44,16 @@
     </span>
 </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<%--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>--%>
+<script src="js/jquery-1.11.3.min.js"></script>
 <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
 <script src="js/vendor/jquery.ui.widget.js"></script>
 <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
-<script src="//blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
+<script src="js/load-image.all.min.js"></script>
 <!-- The Canvas to Blob plugin is included for image resizing functionality -->
-<script src="//blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
+<script src="js/canvas-to-blob.min.js"></script>
 <!-- Bootstrap JS is not required, but included for the responsive demo navigation -->
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="js/bootstrap-3.2.0.min.js"></script>
 <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
 <script src="js/jquery.iframe-transport.js"></script>
 <!-- The basic File Upload plugin -->
@@ -67,11 +70,7 @@
     /*global window, $ */
     $(function () {
         'use strict';
-        // Change this to the location of your server-side upload handler:
-//    var url = window.location.hostname === 'blueimp.github.io' ?
-//                '//jquery-file-upload.appspot.com/' : 'server/php/',
-        var url = window.location.hostname === 'blueimp.github.io' ?
-                        '//jquery-file-upload.appspot.com/' : '/admin-web/images/',
+        var url = '/admin-web/images/',
                 uploadButton = $('<button/>')
                         .addClass('btn btn-primary')
                         .prop('disabled', true)
@@ -152,12 +151,15 @@
             );
         }).on('fileuploaddone', function (e, data) {
             $.each(data.result.files, function (index, file) {
-                if (file.url) {
-                    var link = $('<a>')
-                            .attr('target', '_blank')
-                            .prop('href', file.url);
-                    $(data.context.children()[index])
-                            .wrap(link);
+                if (file.key) {
+                    $('#imageKey').text(file.key);
+//                }
+//                if (file.url) {
+//                    var link = $('<a>')
+//                            .attr('target', '_blank')
+//                            .prop('href', file.url);
+//                    $(data.context.children()[index])
+//                            .wrap(link);
                 } else if (file.error) {
                     var error = $('<span class="text-danger"/>').text(file.error);
                     $(data.context.children()[index])
