@@ -5,7 +5,6 @@
     <title>Upload File Request Page</title>
     <!-- Bootstrap styles -->
     <link rel="stylesheet" href="css/bootstrap-3.2.0.min.css">
-    <%--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">--%>
     <!-- Generic page styles -->
     <link rel="stylesheet" href="css/jquery-file-upload-9.11.2/style.css">
     <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
@@ -21,11 +20,9 @@
     <div class="imageKey"></div>
 
     <div class="progress">
-    <%--<div id="progress" class="progress">--%>
         <div class="progress-bar progress-bar-success"></div>
     </div>
 
-    <!-- The container for the uploaded files -->
     <div class="previewContainer" class="files" style="height: 102px; width: 102px; border: 1px; border-style: solid">
         <img/>
     </div>
@@ -35,7 +32,6 @@
     <div>
         <!-- The fileinput-button span is used to style the file input field as button -->
         <span class="selectFileButton btn btn-success fileinput-button">
-        <%--<span class="selectFileButton" class="btn btn-success fileinput-button">--%>
             <i class="glyphicon glyphicon-plus"></i>
             <span>Select File</span>
             <!-- The file input field used as target for the file upload widget -->
@@ -52,16 +48,11 @@
     <div class="imageKey"></div>
 
     <div class="progress">
-        <%--<div id="progress" class="progress">--%>
         <div class="progress-bar progress-bar-success"></div>
     </div>
 
-    <!-- The container for the uploaded files -->
-    <%--<div class="previewContainer" class="files" style="border: 1px; border-style: solid">--%>
     <div class="previewContainer" class="files" style="height: 102px; width: 102px; border: 1px; border-style: solid">
         <img/>
-        <%--<img src="/admin-web/resources/img/gallery/photo11.jpg">--%>
-        <%--<img src="/admin-web/resources/img/gallery/photo11.jpg" style="max-width: 242%">--%>
     </div>
 
     <div class="fileName">No file selected</div>
@@ -78,25 +69,13 @@
     </div>
 </div>
 
-<%--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>--%>
 <script src="js/jquery-1.11.3.min.js"></script>
-<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
-<script src="js/jquery-file-upload-9.11.2/vendor/jquery.ui.widget.js"></script>
-<!-- The Load Image plugin is included for the preview images and image resizing functionality -->
-<script src="js/jquery-file-upload-9.11.2/load-image.all.min.js"></script>
-<!-- The Canvas to Blob plugin is included for image resizing functionality -->
-<%--<script src="js/canvas-to-blob.min.js"></script>--%>
-<!-- Bootstrap JS is not required, but included for the responsive demo navigation -->
 <script src="js/bootstrap-3.2.0.min.js"></script>
-<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
-<%--<script src="js/jquery.iframe-transport.js"></script>--%>
-<!-- The basic File Upload plugin -->
+<script src="js/jquery-file-upload-9.11.2/vendor/jquery.ui.widget.js"></script>
+<script src="js/jquery-file-upload-9.11.2/load-image.all.min.js"></script>
 <script src="js/jquery-file-upload-9.11.2/jquery.fileupload.js"></script>
-<!-- The File Upload processing plugin -->
 <script src="js/jquery-file-upload-9.11.2/jquery.fileupload-process.js"></script>
-<!-- The File Upload image preview & resize plugin -->
 <script src="js/jquery-file-upload-9.11.2/jquery.fileupload-image.js"></script>
-<!-- The File Upload validation plugin -->
 <script src="js/jquery-file-upload-9.11.2/jquery.fileupload-validate.js"></script>
 
 <script>
@@ -141,8 +120,6 @@
                 // send Blob objects via XHR requests:
                 disableImageResize: /Android(?!.*Chrome)|Opera/
                         .test(window.navigator.userAgent),
-//                previewMaxWidth: options.previewWidth,
-//                previewMaxHeight: options.previewHeight,
                 previewMaxWidth: 100,
                 previewMaxHeight: 100,
                 previewCrop: true
@@ -175,9 +152,6 @@
                 $.each(data.result.files, function (index, file) {
                     if (file.key) {
                         selectElement('.imageKey').text(file.key);
-//                        var image = $('<img>').attr('src', 'http://localhost:8080/admin-web/images/' + file.key);
-//                        selectElement('.imageContainer *').replaceWith(image);
-//                        selectElement('.imageContainer').append('<img>').attr('src', 'http://localhost:8080/admin-web/images/' + file.key);
                         selectElement('.imageContainer img').attr('src', 'http://localhost:8080/admin-web/images/' + file.key);
                     } else if (file.error) {
                         var error = $('<span class="text-danger"/>').text(file.error);
@@ -199,16 +173,12 @@
 
         imageUpload(
                 {
-                    imageSectionId: 'frontLarge'//,
-//                    previewWidth: 720,
-//                    previewHeight: 720
+                    imageSectionId: 'frontLarge'
                 }
         );
         imageUpload(
                 {
-                    imageSectionId: 'frontSmall'//,
-//                    previewWidth: 242,
-//                    previewHeight: 242
+                    imageSectionId: 'frontSmall'
                 }
         );
     });
