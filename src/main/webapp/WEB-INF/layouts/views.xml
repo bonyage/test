@@ -29,7 +29,11 @@
 	</definition>
 	
 	<definition name="order.list" extends="defaultTemplate">
-	    <put-attribute name="body"	value="/WEB-INF/views/order/orderList.jsp" />
+	    <put-attribute name="body"	value="/WEB-INF/views/order/orders.jsp" />
+	</definition>
+
+	<definition name="order.edit" extends="defaultTemplate">
+		<put-attribute name="body"	value="/WEB-INF/views/order/order.jsp" />
 	</definition>
 
 	<definition name="administration.users" extends="defaultTemplate">
