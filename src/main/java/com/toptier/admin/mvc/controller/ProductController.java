@@ -1,7 +1,7 @@
 package com.toptier.admin.mvc.controller;
 
+import com.google.common.base.Strings;
 import com.toptier.core.model.Product;
-import com.toptier.service.ProductDto;
 import com.toptier.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -67,6 +67,22 @@ public class ProductController {
         product.setMarketingText(dto.getMarketingText());
         product.setSku(dto.getSku());
         product.setActive(dto.isActive());
+
+        // Icon
+        if (!Strings.isNullOrEmpty(dto.getIconImageKey())) product.setIconImage(dto.getIconImageKey());
+        // Front
+        if (!Strings.isNullOrEmpty(dto.getFrontSmallImageKey())) product.setFrontSmallImage(dto.getFrontSmallImageKey());
+        if (!Strings.isNullOrEmpty(dto.getFrontMediumImageKey())) product.setFrontMediumImage(dto.getFrontMediumImageKey());
+        if (!Strings.isNullOrEmpty(dto.getFrontLargeImageKey())) product.setFrontLargeImage(dto.getFrontLargeImageKey());
+        // Side
+        if (!Strings.isNullOrEmpty(dto.getSideSmallImageKey())) product.setSideSmallImage(dto.getSideSmallImageKey());
+        if (!Strings.isNullOrEmpty(dto.getSideMediumImageKey())) product.setSideMediumImage(dto.getSideMediumImageKey());
+        if (!Strings.isNullOrEmpty(dto.getSideLargeImageKey())) product.setSideLargeImage(dto.getSideLargeImageKey());
+        // Back
+        if (!Strings.isNullOrEmpty(dto.getBackSmallImageKey())) product.setBackSmallImage(dto.getBackSmallImageKey());
+        if (!Strings.isNullOrEmpty(dto.getBackMediumImageKey())) product.setBackMediumImage(dto.getBackMediumImageKey());
+        if (!Strings.isNullOrEmpty(dto.getBackLargeImageKey())) product.setBackLargeImage(dto.getBackLargeImageKey());
+
         return product;
     }
 
@@ -80,6 +96,22 @@ public class ProductController {
         dto.setMarketingText(product.getMarketingText());
         dto.setSku(product.getSku());
         dto.setActive(product.isActive());
+
+        // Icon
+        if (!Strings.isNullOrEmpty(product.getIconImage())) dto.setIconImageKey(product.getIconImage());
+        // Front
+        if (!Strings.isNullOrEmpty(product.getFrontSmallImage())) dto.setFrontSmallImageKey(product.getFrontSmallImage());
+        if (!Strings.isNullOrEmpty(product.getFrontMediumImage())) dto.setFrontMediumImageKey(product.getFrontMediumImage());
+        if (!Strings.isNullOrEmpty(product.getFrontLargeImage())) dto.setFrontLargeImageKey(product.getFrontLargeImage());
+        // Side
+        if (!Strings.isNullOrEmpty(product.getSideSmallImage())) dto.setSideSmallImageKey(product.getSideSmallImage());
+        if (!Strings.isNullOrEmpty(product.getSideMediumImage())) dto.setSideMediumImageKey(product.getSideMediumImage());
+        if (!Strings.isNullOrEmpty(product.getSideLargeImage())) dto.setSideLargeImageKey(product.getSideLargeImage());
+        // Back
+        if (!Strings.isNullOrEmpty(product.getBackSmallImage())) dto.setBackSmallImageKey(product.getBackSmallImage());
+        if (!Strings.isNullOrEmpty(product.getBackMediumImage())) dto.setBackMediumImageKey(product.getBackMediumImage());
+        if (!Strings.isNullOrEmpty(product.getBackLargeImage())) dto.setBackLargeImageKey(product.getBackLargeImage());
+
         return dto;
     }
 

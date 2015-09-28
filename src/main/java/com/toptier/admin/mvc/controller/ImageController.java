@@ -1,7 +1,6 @@
 package com.toptier.admin.mvc.controller;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
 import com.google.common.io.ByteStreams;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,6 +22,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -50,15 +51,18 @@ public class ImageController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_JPEG);
         headers.setContentLength(imageContent.length);
-        return new ResponseEntity(imageContent, headers, HttpStatus.OK);
+        return new ResponseEntity<>(imageContent, headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody
-    public Map uploadImage(@RequestParam("imageFile") MultipartFile imageFile) throws IOException {
+    public Map<Object, Object> uploadImage(@RequestParam("imageFile") MultipartFile imageFile) throws IOException {
         String key = save(imageFile.getBytes());
-        Map f = ImmutableMap.builder().put("name", "someName").put("size", 123456).put("key", key).build();
-        return ImmutableMap.builder().put("files", Lists.newArrayList(f)).build();
+        Map<Object, Object> f = ImmutableMap.builder().put("name", "someName").put("size", 123456).put("key", key).build();
+        List<Map<Object, Object>> imageFileDetails = new ArrayList<>();
+        imageFileDetails.add(f);
+        return ImmutableMap.builder().put("files", imageFileDetails).build();
+//        return ImmutableMap.builder().put("files", Lists.newArrayList(f)).build();
     }
 
     private byte[] retrieve(String imageKey) throws IOException {

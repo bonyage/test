@@ -46,32 +46,402 @@
                     <form:checkbox id="active" path="active"/>
                 </div>
             </div>
-            <%--<div class="control-group">--%>
-                <%--<form:label path="frontLargeImageKey" class="control-label" for="frontLargeImageKey">SKU</form:label>--%>
-                <%--<div class="controls">--%>
-                    <%--<form:input id="frontLargeImageKey" path="frontLargeImageKey" type="text" class="input-xlarge" disabled="true"/>--%>
-                <%--</div>--%>
-            <%--</div>--%>
             <div class="control-group">
-                <label path="frontLargeImageKey" class="control-label" for="frontLargeImageKey">Key for Front Large Image</label>
+                <form:label path="iconImageKey" class="control-label" for="iconImageKey">Icon Image Key</form:label>
                 <div class="controls">
-                    <input id="frontLargeImageKey" path="frontLargeImageKey" type="text" class="input-xlarge" disabled="true"/>
+                    <form:input id="iconImageKey" path="iconImageKey" type="text" class="input-xlarge"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <form:label path="frontSmallImageKey" class="control-label" for="frontSmallImageKey">Front Small Image Key</form:label>
+                <div class="controls">
+                    <form:input id="frontSmallImageKey" path="frontSmallImageKey" type="text" class="input-xlarge"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <form:label path="frontMediumImageKey" class="control-label" for="frontMediumImageKey">Front Medium Image Key</form:label>
+                <div class="controls">
+                    <form:input id="frontMediumImageKey" path="frontMediumImageKey" type="text" class="input-xlarge"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <form:label path="frontLargeImageKey" class="control-label" for="frontLargeImageKey">Front Large Image Key</form:label>
+                <div class="controls">
+                    <form:input id="frontLargeImageKey" path="frontLargeImageKey" type="text" class="input-xlarge"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <form:label path="sideSmallImageKey" class="control-label" for="sideSmallImageKey">Side Small Image Key</form:label>
+                <div class="controls">
+                    <form:input id="sideSmallImageKey" path="sideSmallImageKey" type="text" class="input-xlarge"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <form:label path="sideMediumImageKey" class="control-label" for="sideMediumImageKey">Side Medium Image Key</form:label>
+                <div class="controls">
+                    <form:input id="sideMediumImageKey" path="sideMediumImageKey" type="text" class="input-xlarge"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <form:label path="sideLargeImageKey" class="control-label" for="sideLargeImageKey">Side Large Image Key</form:label>
+                <div class="controls">
+                    <form:input id="sideLargeImageKey" path="sideLargeImageKey" type="text" class="input-xlarge"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <form:label path="backSmallImageKey" class="control-label" for="backSmallImageKey">Back Small Image Key</form:label>
+                <div class="controls">
+                    <form:input id="backSmallImageKey" path="backSmallImageKey" type="text" class="input-xlarge"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <form:label path="backMediumImageKey" class="control-label" for="backMediumImageKey">Back Medium Image Key</form:label>
+                <div class="controls">
+                    <form:input id="backMediumImageKey" path="backMediumImageKey" type="text" class="input-xlarge"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <form:label path="backLargeImageKey" class="control-label" for="backLargeImageKey">Back Large Image Key</form:label>
+                <div class="controls">
+                    <form:input id="backLargeImageKey" path="backLargeImageKey" type="text" class="input-xlarge"/>
                 </div>
             </div>
             <div class="form-actions">
                 <input type="submit" class="btn btn-success btn-large" value="Save" />
-                <a class="btn" href="${pageContext.request.contextPath}/product/list">Cancel</a>
+                <a class="btn" href="<c:url value="/product/list"/>">Cancel</a>
             </div>
         </fieldset>
     </form:form>
 </div>
 
-<div id="frontLarge">
-    <div class="imageContainer" style="height: 722px; width: 722px; border: 1px; border-style: solid">
-        <img src="/admin-web/resources/img/gallery/photo11.jpg"/>
+<div id="icon">
+    <h2>Icon</h2>
+
+    <div class="imageContainer" style="height: 112px; width: 112px; border: 1px; border-style: solid">
+        <c:choose>
+            <c:when test="${!empty product.iconImageUrl}">
+                <img src="<c:url value="${product.iconImageUrl}"/>"/>
+            </c:when>
+            <c:otherwise>
+                <img/>
+            </c:otherwise>
+        </c:choose>
     </div>
 
-    <%--<div class="imageKey"></div>--%>
+    <div class="progress">
+        <div class="progress-bar progress-bar-success"></div>
+    </div>
+
+    <div class="previewContainer" class="files" style="height: 102px; width: 102px; border: 1px; border-style: solid">
+        <img/>
+    </div>
+
+    <div class="fileName">No file selected</div>
+
+    <div>
+        <!-- The fileinput-button span is used to style the file input field as button -->
+        <span class="selectFileButton btn btn-success fileinput-button">
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>Select File</span>
+            <!-- The file input field used as target for the file upload widget -->
+            <input class="fileUpload" type="file" name="imageFile">
+        </span>
+    </div>
+</div>
+
+<div id="frontSmall">
+    <h2>Front - Small</h2>
+
+    <div class="imageContainer" style="height: 244px; width: 244px; border: 1px; border-style: solid">
+        <c:choose>
+            <c:when test="${!empty product.frontSmallImageUrl}">
+                <img src="<c:url value="${product.frontSmallImageUrl}"/>"/>
+            </c:when>
+            <c:otherwise>
+                <img/>
+            </c:otherwise>
+        </c:choose>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar progress-bar-success"></div>
+    </div>
+
+    <div class="previewContainer" class="files" style="height: 102px; width: 102px; border: 1px; border-style: solid">
+        <img/>
+    </div>
+
+    <div class="fileName">No file selected</div>
+
+    <div>
+        <!-- The fileinput-button span is used to style the file input field as button -->
+        <span class="selectFileButton btn btn-success fileinput-button">
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>Select File</span>
+            <!-- The file input field used as target for the file upload widget -->
+            <input class="fileUpload" type="file" name="imageFile">
+        </span>
+    </div>
+</div>
+
+<div id="frontMedium">
+    <h2>Front - Medium</h2>
+
+    <div class="imageContainer" style="height: 440px; width: 440px; border: 1px; border-style: solid">
+        <c:choose>
+            <c:when test="${!empty product.frontMediumImageUrl}">
+                <img src="<c:url value="${product.frontMediumImageUrl}"/>"/>
+            </c:when>
+            <c:otherwise>
+                <img/>
+            </c:otherwise>
+        </c:choose>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar progress-bar-success"></div>
+    </div>
+
+    <div class="previewContainer" class="files" style="height: 102px; width: 102px; border: 1px; border-style: solid">
+        <img/>
+    </div>
+
+    <div class="fileName">No file selected</div>
+
+    <div>
+        <!-- The fileinput-button span is used to style the file input field as button -->
+        <span class="selectFileButton btn btn-success fileinput-button">
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>Select File</span>
+            <!-- The file input field used as target for the file upload widget -->
+            <input class="fileUpload" type="file" name="imageFile">
+        </span>
+    </div>
+</div>
+
+<div id="frontLarge">
+    <h2>Front - Large</h2>
+
+    <div class="imageContainer" style="height: 722px; width: 722px; border: 1px; border-style: solid">
+        <c:choose>
+            <c:when test="${!empty product.frontLargeImageUrl}">
+                <img src="<c:url value="${product.frontLargeImageUrl}"/>"/>
+            </c:when>
+            <c:otherwise>
+                <img/>
+            </c:otherwise>
+        </c:choose>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar progress-bar-success"></div>
+    </div>
+
+    <div class="previewContainer" class="files" style="height: 102px; width: 102px; border: 1px; border-style: solid">
+        <img/>
+    </div>
+
+    <div class="fileName">No file selected</div>
+
+    <div>
+        <!-- The fileinput-button span is used to style the file input field as button -->
+        <span class="selectFileButton btn btn-success fileinput-button">
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>Select File</span>
+            <!-- The file input field used as target for the file upload widget -->
+            <input class="fileUpload" type="file" name="imageFile">
+        </span>
+    </div>
+</div>
+
+<div id="sideSmall">
+    <h2>Side - Small</h2>
+
+    <div class="imageContainer" style="height: 244px; width: 244px; border: 1px; border-style: solid">
+        <c:choose>
+            <c:when test="${!empty product.sideSmallImageUrl}">
+                <img src="<c:url value="${product.sideSmallImageUrl}"/>"/>
+            </c:when>
+            <c:otherwise>
+                <img/>
+            </c:otherwise>
+        </c:choose>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar progress-bar-success"></div>
+    </div>
+
+    <div class="previewContainer" class="files" style="height: 102px; width: 102px; border: 1px; border-style: solid">
+        <img/>
+    </div>
+
+    <div class="fileName">No file selected</div>
+
+    <div>
+        <!-- The fileinput-button span is used to style the file input field as button -->
+        <span class="selectFileButton btn btn-success fileinput-button">
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>Select File</span>
+            <!-- The file input field used as target for the file upload widget -->
+            <input class="fileUpload" type="file" name="imageFile">
+        </span>
+    </div>
+</div>
+
+<div id="sideMedium">
+    <h2>Side - Medium</h2>
+
+    <div class="imageContainer" style="height: 440px; width: 440px; border: 1px; border-style: solid">
+        <c:choose>
+            <c:when test="${!empty product.sideMediumImageUrl}">
+                <img src="<c:url value="${product.sideMediumImageUrl}"/>"/>
+            </c:when>
+            <c:otherwise>
+                <img/>
+            </c:otherwise>
+        </c:choose>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar progress-bar-success"></div>
+    </div>
+
+    <div class="previewContainer" class="files" style="height: 102px; width: 102px; border: 1px; border-style: solid">
+        <img/>
+    </div>
+
+    <div class="fileName">No file selected</div>
+
+    <div>
+        <!-- The fileinput-button span is used to style the file input field as button -->
+        <span class="selectFileButton btn btn-success fileinput-button">
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>Select File</span>
+            <!-- The file input field used as target for the file upload widget -->
+            <input class="fileUpload" type="file" name="imageFile">
+        </span>
+    </div>
+</div>
+
+<div id="sideLarge">
+    <h2>Side - Large</h2>
+
+    <div class="imageContainer" style="height: 722px; width: 722px; border: 1px; border-style: solid">
+        <c:choose>
+            <c:when test="${!empty product.sideLargeImageUrl}">
+                <img src="<c:url value="${product.sideLargeImageUrl}"/>"/>
+            </c:when>
+            <c:otherwise>
+                <img/>
+            </c:otherwise>
+        </c:choose>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar progress-bar-success"></div>
+    </div>
+
+    <div class="previewContainer" class="files" style="height: 102px; width: 102px; border: 1px; border-style: solid">
+        <img/>
+    </div>
+
+    <div class="fileName">No file selected</div>
+
+    <div>
+        <!-- The fileinput-button span is used to style the file input field as button -->
+        <span class="selectFileButton btn btn-success fileinput-button">
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>Select File</span>
+            <!-- The file input field used as target for the file upload widget -->
+            <input class="fileUpload" type="file" name="imageFile">
+        </span>
+    </div>
+</div>
+
+<div id="backSmall">
+    <h2>Back - Small</h2>
+
+    <div class="imageContainer" style="height: 244px; width: 244px; border: 1px; border-style: solid">
+        <c:choose>
+            <c:when test="${!empty product.backSmallImageUrl}">
+                <img src="<c:url value="${product.backSmallImageUrl}"/>"/>
+            </c:when>
+            <c:otherwise>
+                <img/>
+            </c:otherwise>
+        </c:choose>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar progress-bar-success"></div>
+    </div>
+
+    <div class="previewContainer" class="files" style="height: 102px; width: 102px; border: 1px; border-style: solid">
+        <img/>
+    </div>
+
+    <div class="fileName">No file selected</div>
+
+    <div>
+        <!-- The fileinput-button span is used to style the file input field as button -->
+        <span class="selectFileButton btn btn-success fileinput-button">
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>Select File</span>
+            <!-- The file input field used as target for the file upload widget -->
+            <input class="fileUpload" type="file" name="imageFile">
+        </span>
+    </div>
+</div>
+
+<div id="backMedium">
+    <h2>Back - Medium</h2>
+
+    <div class="imageContainer" style="height: 440px; width: 440px; border: 1px; border-style: solid">
+        <c:choose>
+            <c:when test="${!empty product.backMediumImageUrl}">
+                <img src="<c:url value="${product.backMediumImageUrl}"/>"/>
+            </c:when>
+            <c:otherwise>
+                <img/>
+            </c:otherwise>
+        </c:choose>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar progress-bar-success"></div>
+    </div>
+
+    <div class="previewContainer" class="files" style="height: 102px; width: 102px; border: 1px; border-style: solid">
+        <img/>
+    </div>
+
+    <div class="fileName">No file selected</div>
+
+    <div>
+        <!-- The fileinput-button span is used to style the file input field as button -->
+        <span class="selectFileButton btn btn-success fileinput-button">
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>Select File</span>
+            <!-- The file input field used as target for the file upload widget -->
+            <input class="fileUpload" type="file" name="imageFile">
+        </span>
+    </div>
+</div>
+
+<div id="backLarge">
+    <h2>Back - Large</h2>
+
+    <div class="imageContainer" style="height: 722px; width: 722px; border: 1px; border-style: solid">
+        <c:choose>
+            <c:when test="${!empty product.backLargeImageUrl}">
+                <img src="<c:url value="${product.backLargeImageUrl}"/>"/>
+            </c:when>
+            <c:otherwise>
+                <img/>
+            </c:otherwise>
+        </c:choose>
+    </div>
 
     <div class="progress">
         <div class="progress-bar progress-bar-success"></div>

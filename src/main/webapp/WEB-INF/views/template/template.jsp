@@ -255,16 +255,64 @@
 
         imageUpload(
                 {
+                    imageSectionId: 'icon',
+                    imageKeyId: 'iconImageKey'
+                }
+        );
+        imageUpload(
+                {
+                    imageSectionId: 'frontSmall',
+                    imageKeyId: 'frontSmallImageKey'
+                }
+        );
+        imageUpload(
+                {
+                    imageSectionId: 'frontMedium',
+                    imageKeyId: 'frontMediumImageKey'
+                }
+        );
+        imageUpload(
+                {
                     imageSectionId: 'frontLarge',
                     imageKeyId: 'frontLargeImageKey'
                 }
         );
-//        imageUpload(
-//                {
-//                    imageSectionId: 'frontSmall',
-//                    imageKeyId: 'frontSmallImageKey'
-//                }
-//        );
+        imageUpload(
+                {
+                    imageSectionId: 'sideSmall',
+                    imageKeyId: 'sideSmallImageKey'
+                }
+        );
+        imageUpload(
+                {
+                    imageSectionId: 'sideMedium',
+                    imageKeyId: 'sideMediumImageKey'
+                }
+        );
+        imageUpload(
+                {
+                    imageSectionId: 'sideLarge',
+                    imageKeyId: 'sideLargeImageKey'
+                }
+        );
+        imageUpload(
+                {
+                    imageSectionId: 'backSmall',
+                    imageKeyId: 'backSmallImageKey'
+                }
+        );
+        imageUpload(
+                {
+                    imageSectionId: 'backMedium',
+                    imageKeyId: 'backMediumImageKey'
+                }
+        );
+        imageUpload(
+                {
+                    imageSectionId: 'backLarge',
+                    imageKeyId: 'backLargeImageKey'
+                }
+        );
     });
 </script>
 </body>
