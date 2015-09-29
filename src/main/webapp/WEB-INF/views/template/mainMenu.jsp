@@ -15,7 +15,7 @@
         <li><a href="${home}pricing/list"><i class="icon-tasks"></i><span class="hidden-tablet"> Pricing </span></a>
         </li>
         <li><a href="${home}inventory/list"><i class="icon-qrcode"></i><span class="hidden-tablet"> Inventory </span></a></li>
-        <li><a href="${home}orders"><i class="icon-list-alt"></i><span class="hidden-tablet"> Order</span></a></li>
+        <li><a href="${home}orders?orderStatus="><i class="icon-list-alt"></i><span class="hidden-tablet"> Order</span></a></li>
         <li><a href="${home}agent/list"><i class="icon-user"></i><span class="hidden-tablet"> Agent</span></a></li>
     </ul>
 </div>

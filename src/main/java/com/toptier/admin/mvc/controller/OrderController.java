@@ -7,6 +7,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.toptier.service.OrderService;
@@ -21,8 +22,8 @@ public class OrderController {
 	private OrderService orderService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView orders(ModelMap model) {
-		List<CustomerOrder> orders = orderService.getAllOrders();
+	public ModelAndView orders(ModelMap model, @RequestParam("orderStatus") String orderStatus) {
+		List<CustomerOrder> orders = orderService.getOrdersByStatus(orderStatus);
 		ModelAndView mav = new ModelAndView("order.list");
 		mav.addObject("orders",orders);
 		return mav;
