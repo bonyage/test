@@ -38,9 +38,9 @@
                             <tr>
                                 <td><c:out value="${order.customer.name}"/></td>
                                 <td><c:out value="${order.customer.email}"/></td>
-                                <td><joda:format value="${order.orderDate}" style="M-" /></td>
+                                <td><joda:format value="${order.orderDate}" style="M-"/></td>
                                 <td><c:out value="${order.status.name() }"/></td>
-                                <td>$<c:out value="${order.total}"/></td>
+                                <td><spring:message code="order.product.currency"/><c:out value="${order.total}"/></td>
                             </tr>
                         </tbody>
                     </table>
@@ -76,8 +76,8 @@
                                             <td><c:out value="${orderline.productPricing.product.name}"/></td>
                                             <td><c:out value="${orderline.productPricing.product.sku}"/></td>
                                             <td><c:out value="${orderline.quantity}"/></td>
-                                            <td>$<c:out value="${orderline.productPricing.baseUnitPrice / 100}"/></td>
-                                            <td>$<c:out value="${orderline.subtotal}"/></td>
+                                            <td><spring:message code="order.product.currency"/><c:out value="${orderline.productPricing.baseUnitPrice / 100}"/></td>
+                                            <td><spring:message code="order.product.currency"/><c:out value="${orderline.subtotal}"/></td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
