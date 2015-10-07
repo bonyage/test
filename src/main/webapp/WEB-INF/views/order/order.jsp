@@ -4,7 +4,19 @@
 <%@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<script>
 
+    function showOrHideSaveStatusButton(currentStatus) {
+        var e = document.getElementById("status");
+        var newStatus = e.options[e.selectedIndex].value;
+        if (currentStatus == newStatus) {
+            $('#orderStatusSaveButton').addClass('hidden');
+        } else {
+            $('#orderStatusSaveButton').removeClass('hidden');
+        }
+
+    }
+</script>
 
 <ul class="breadcrumb">
     <li><i class="icon-home"></i> <a href="index.html">Home</a> <i class="icon-angle-right"></i></li>
@@ -17,7 +29,7 @@
                 <h2>
                     <i class="halflings-icon shopping-cart"></i><span class="break"></span><spring:message code="order.order.head"/><c:out value=" #${order.id}"/>
                 </h2>
-
+                <input type="hidden" name="id" value="${order.id}"/>
                 <div class="box-icon">
                     <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
                 </div>
@@ -39,7 +51,16 @@
                                 <td><c:out value="${order.customer.name}"/></td>
                                 <td><c:out value="${order.customer.email}"/></td>
                                 <td><joda:format value="${order.orderDate}" style="M-"/></td>
-                                <td><c:out value="${order.status.name() }"/></td>
+                                <td>
+                                    <div class="form-group">
+                                        <select id="status" class="form-control" name="status" onchange="showOrHideSaveStatusButton('${order.status.name()}')">
+                                            <c:forEach items="${order.validStatuses}" var="orderStatus">
+                                                <option value="${orderStatus.name()}" ${order.status.name() == orderStatus.name() ? 'selected="selected"' : ''}>${orderStatus.name()}</option>
+                                            </c:forEach>
+                                        </select>
+                                        <button type="submit" id="orderStatusSaveButton" class="hidden btn btn-primary">Save</button>
+                                    </div>
+                                </td>
                                 <td><spring:message code="order.product.currency"/><c:out value="${order.total}"/></td>
                             </tr>
                         </tbody>
