@@ -51,6 +51,9 @@ public class OrderController {
 		if (StringUtils.isNotEmpty(customerOrderDto.getDeliveryNote())) {
 			order.setDeliveryNotes(customerOrderDto.getDeliveryNote());
 		}
+		if (StringUtils.isNotEmpty(customerOrderDto.getDeliveryAddress())) {
+			order.setDeliveryAddress(customerOrderDto.getDeliveryAddress());
+		}
 		return order;
 	}
 

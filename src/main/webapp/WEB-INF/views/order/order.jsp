@@ -5,7 +5,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script>
-
     function showOrHideSaveStatusButton(currentStatus) {
         var e = document.getElementById("status");
         var newStatus = e.options[e.selectedIndex].value;
@@ -14,7 +13,17 @@
         } else {
             $('#orderStatusSaveButton').removeClass('hidden');
         }
+    }
 
+    function enableDeliveryNoteEditing() {
+        $('#deliveryNote').prop('disabled', false);
+        $('#deliveryNoteEditButton').remove();
+        $('#deliveryNoteSaveButton').removeClass('hidden');
+    }
+    function enableDeliveryAddressEditing() {
+        $('#deliveryAddress').prop('disabled', false);
+        $('#deliveryAddressEditButton').remove();
+        $('#deliveryAddressSaveButton').removeClass('hidden');
     }
 </script>
 
@@ -58,7 +67,7 @@
                                                 <option value="${orderStatus.name()}" ${order.status.name() == orderStatus.name() ? 'selected="selected"' : ''}>${orderStatus.name()}</option>
                                             </c:forEach>
                                         </select>
-                                        <button type="submit" id="orderStatusSaveButton" class="hidden btn btn-primary">Save</button>
+                                        <button type="submit" id="orderStatusSaveButton" class="hidden btn btn-primary">Update</button>
                                     </div>
                                 </td>
                                 <td><spring:message code="order.product.currency"/><c:out value="${order.total}"/></td>
@@ -147,7 +156,13 @@
                                     </tr>
                                     <tr>
                                         <td><spring:message code="order.order.deliveryNotes"/></td>
-                                        <td><c:out value="${order.deliveryNotes}"/></td>
+                                        <td>
+                                            <div class="form-group">
+                                                <textarea disabled class="form-control" name="deliveryNote" rows="3" cols="30" id="deliveryNote" maxlength="399"><c:out value="${order.deliveryNotes}"/></textarea>
+                                                <button type="button" id="deliveryNoteEditButton" onclick="enableDeliveryNoteEditing()" class="btn btn-primary">Edit</button>
+                                                <button type="submit" id="deliveryNoteSaveButton" class="btn btn-primary hidden">Update</button>
+                                            </div>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -218,12 +233,11 @@
                                     <tr>
                                         <td><spring:message code="order.order.address"/></td>
                                         <td>
-                                            <address>
-                                                <strong><c:out value="${order.customer.name}"/></strong><br>
-                                                <c:out value="${order.customer.address.addrLines}"/><br>
-                                                <c:out value="${order.customer.address.region}"/> <c:out value="${order.customer.address.postcode}"/><br>
-                                                <abbr title="Phone">P:</abbr> <c:out value="${order.customer.phone}"/>
-                                            </address>
+                                            <div class="form-group">
+                                                <textarea disabled class="form-control" name="deliveryAddress" rows="5" cols="60" id="deliveryAddress" maxlength="999"><c:out value="${order.deliveryAddress}"/></textarea>
+                                                <button type="button" id="deliveryAddressEditButton" onclick="enableDeliveryAddressEditing()" class="btn btn-primary">Edit</button>
+                                                <button type="submit" id="deliveryAddressSaveButton" class="btn btn-primary hidden">Update</button>
+                                            </div>
                                         </td>
                                     </tr>
                                     </tbody>
