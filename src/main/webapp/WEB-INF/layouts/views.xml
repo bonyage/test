@@ -14,7 +14,9 @@
 	</definition>
 
     <definition name="product.form" extends="defaultTemplate">
-        <put-attribute name="body"	value="/WEB-INF/views/product/productForm.jsp" />
+		<put-attribute name="pageSpecificCss" value="/WEB-INF/views/product/productFormCss.jsp" />
+		<put-attribute name="body"	value="/WEB-INF/views/product/productForm.jsp" />
+		<put-attribute name="pageSpecificJavascript" value="/WEB-INF/views/product/productFormJavaScript.jsp" />
     </definition>
 
 	<definition name="agent.list" extends="defaultTemplate">
