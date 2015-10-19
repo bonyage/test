@@ -25,8 +25,10 @@
 	<link id="base-style" href="<c:url value="/resources/css/style.css"/>" rel="stylesheet">
 	<link id="base-style-responsive" href="<c:url value="/resources/css/style-responsive.css"/>" rel="stylesheet">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,latin-ext' rel='stylesheet' type='text/css'>
+    <%--<!-- Bootstrap styles -->--%>
+    <%--<link rel="stylesheet" href='<c:url value="/resources/css/bootstrap-3.2.0.min.css"/>'>--%>
 	<!-- end: CSS -->
-	
+	<tiles:insertAttribute name="pageSpecificCss" ignore="true" />
 
 	<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
@@ -41,7 +43,7 @@
 	<!-- start: Favicon -->
 	<link rel="shortcut icon" href="<c:url value="/resources/img/favicon.ico"/>">
 	<!-- end: Favicon -->
-				
+
 </head>
 
 <body>
@@ -80,12 +82,13 @@
 			
 	<div class="clearfix"></div>
 	
-	<tiles:insertAttribute name="footer" />				
-	
+	<tiles:insertAttribute name="footer" />
+
 	
 	<!-- start: JavaScript-->
 
-		<script src="<c:url value="/resources/js/jquery-1.9.1.min.js"/>"></script>
+<%--<script src='<c:url value="/resources/js/jquery-1.11.3.min.js"/>'></script>--%>
+<script src="<c:url value="/resources/js/jquery-1.9.1.min.js"/>"></script>
 	<script src="<c:url value="/resources/js/jquery-migrate-1.0.0.min.js"/>"></script>
 	
 		<script src="<c:url value="/resources/js/jquery-ui-1.10.0.custom.min.js"/>"></script>
@@ -93,9 +96,10 @@
 		<script src="<c:url value="/resources/js/jquery.ui.touch-punch.js"/>"></script>
 	
 		<script src="<c:url value="/resources/js/modernizr.js"/>"></script>
-	
-		<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
-	
+
+<%--<script src='<c:url value="/resources/js/bootstrap-3.2.0.min.js"/>'></script>--%>
+<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+
 		<script src="<c:url value="/resources/js/jquery.cookie.js"/>"></script>
 	
 		<script src="<c:url value="/resources/js/fullcalendar.min.js"/>"></script>
@@ -140,7 +144,8 @@
 
 		<script src="<c:url value="/resources/js/custom.js"/>"></script>
 	<!-- end: JavaScript-->
-	
+
+        <tiles:insertAttribute name="pageSpecificJavascript" ignore="true" />
 </body>
 
 </html>

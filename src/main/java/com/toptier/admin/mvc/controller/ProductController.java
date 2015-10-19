@@ -1,11 +1,10 @@
 package com.toptier.admin.mvc.controller;
 
+import com.google.common.base.Strings;
 import com.toptier.core.model.Product;
-import com.toptier.service.ProductDto;
 import com.toptier.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +16,6 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/product")
-
 public class ProductController {
 
 	@Autowired
@@ -33,7 +31,8 @@ public class ProductController {
     public ModelAndView newProductForm(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("product.form");
         modelAndView.addObject("product", new ProductDto());
-        modelAndView.addObject("formConfig", new ProductFormConfig(request, "New Product"));
+        modelAndView.addObject("heading", "New Product");
+        modelAndView.addObject("action", addNewProductUrl(request));
         return modelAndView;
     }
 
@@ -49,7 +48,8 @@ public class ProductController {
         // TODO Deal with product == null
         ModelAndView modelAndView = new ModelAndView("product.form");
         modelAndView.addObject("product", toDto(product));
-        modelAndView.addObject("formConfig", new ProductFormConfig(request, "Edit Product", productId));
+        modelAndView.addObject("heading", "Edit Product");
+        modelAndView.addObject("action", updateProductUrl(request, productId));
         return modelAndView;
     }
 
@@ -57,6 +57,14 @@ public class ProductController {
     public ModelAndView updateProduct(@ModelAttribute ProductDto dto) {
         productService.saveUpdateProduct(toEntity(dto));
         return new ModelAndView("redirect:list");
+    }
+
+    private String addNewProductUrl(HttpServletRequest request) {
+        return request.getContextPath() + "/product/";
+    }
+
+    private String updateProductUrl(HttpServletRequest request, int productId) {
+        return request.getContextPath() + "/product/" + productId;
     }
 
     private Product toEntity(ProductDto dto) {
@@ -69,6 +77,22 @@ public class ProductController {
         product.setMarketingText(dto.getMarketingText());
         product.setSku(dto.getSku());
         product.setActive(dto.isActive());
+
+        // Icon
+        if (!Strings.isNullOrEmpty(dto.getIconImageKey())) product.setIconImage(dto.getIconImageKey());
+        // Front
+        if (!Strings.isNullOrEmpty(dto.getFrontSmallImageKey())) product.setFrontSmallImage(dto.getFrontSmallImageKey());
+        if (!Strings.isNullOrEmpty(dto.getFrontMediumImageKey())) product.setFrontMediumImage(dto.getFrontMediumImageKey());
+        if (!Strings.isNullOrEmpty(dto.getFrontLargeImageKey())) product.setFrontLargeImage(dto.getFrontLargeImageKey());
+        // Side
+        if (!Strings.isNullOrEmpty(dto.getSideSmallImageKey())) product.setSideSmallImage(dto.getSideSmallImageKey());
+        if (!Strings.isNullOrEmpty(dto.getSideMediumImageKey())) product.setSideMediumImage(dto.getSideMediumImageKey());
+        if (!Strings.isNullOrEmpty(dto.getSideLargeImageKey())) product.setSideLargeImage(dto.getSideLargeImageKey());
+        // Back
+        if (!Strings.isNullOrEmpty(dto.getBackSmallImageKey())) product.setBackSmallImage(dto.getBackSmallImageKey());
+        if (!Strings.isNullOrEmpty(dto.getBackMediumImageKey())) product.setBackMediumImage(dto.getBackMediumImageKey());
+        if (!Strings.isNullOrEmpty(dto.getBackLargeImageKey())) product.setBackLargeImage(dto.getBackLargeImageKey());
+
         return product;
     }
 
@@ -82,33 +106,22 @@ public class ProductController {
         dto.setMarketingText(product.getMarketingText());
         dto.setSku(product.getSku());
         dto.setActive(product.isActive());
+
+        // Icon
+        if (!Strings.isNullOrEmpty(product.getIconImage())) dto.setIconImageKey(product.getIconImage());
+        // Front
+        if (!Strings.isNullOrEmpty(product.getFrontSmallImage())) dto.setFrontSmallImageKey(product.getFrontSmallImage());
+        if (!Strings.isNullOrEmpty(product.getFrontMediumImage())) dto.setFrontMediumImageKey(product.getFrontMediumImage());
+        if (!Strings.isNullOrEmpty(product.getFrontLargeImage())) dto.setFrontLargeImageKey(product.getFrontLargeImage());
+        // Side
+        if (!Strings.isNullOrEmpty(product.getSideSmallImage())) dto.setSideSmallImageKey(product.getSideSmallImage());
+        if (!Strings.isNullOrEmpty(product.getSideMediumImage())) dto.setSideMediumImageKey(product.getSideMediumImage());
+        if (!Strings.isNullOrEmpty(product.getSideLargeImage())) dto.setSideLargeImageKey(product.getSideLargeImage());
+        // Back
+        if (!Strings.isNullOrEmpty(product.getBackSmallImage())) dto.setBackSmallImageKey(product.getBackSmallImage());
+        if (!Strings.isNullOrEmpty(product.getBackMediumImage())) dto.setBackMediumImageKey(product.getBackMediumImage());
+        if (!Strings.isNullOrEmpty(product.getBackLargeImage())) dto.setBackLargeImageKey(product.getBackLargeImage());
+
         return dto;
-    }
-
-    public static class ProductFormConfig {
-        private final String heading;
-        private String action;
-
-        private ProductFormConfig(HttpServletRequest request, String heading) {
-            this.heading = heading;
-            action = constructBaseAction(request);
-        }
-
-        private ProductFormConfig(HttpServletRequest request, String heading, int productId) {
-            this(request, heading);
-            action = action + productId;
-        }
-
-        private String constructBaseAction(HttpServletRequest request) {
-            return request.getContextPath() + "/product/";
-        }
-
-        public String getHeading() {
-            return heading;
-        }
-
-        public String getAction() {
-            return action;
-        }
     }
 }
