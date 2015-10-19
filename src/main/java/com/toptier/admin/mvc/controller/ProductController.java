@@ -31,7 +31,8 @@ public class ProductController {
     public ModelAndView newProductForm(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("product.form");
         modelAndView.addObject("product", new ProductDto());
-        modelAndView.addObject("formConfig", new ProductFormConfig(request, "New Product"));
+        modelAndView.addObject("heading", "New Product");
+        modelAndView.addObject("action", addNewProductUrl(request));
         return modelAndView;
     }
 
@@ -47,7 +48,8 @@ public class ProductController {
         // TODO Deal with product == null
         ModelAndView modelAndView = new ModelAndView("product.form");
         modelAndView.addObject("product", toDto(product));
-        modelAndView.addObject("formConfig", new ProductFormConfig(request, "Edit Product", productId));
+        modelAndView.addObject("heading", "Edit Product");
+        modelAndView.addObject("action", updateProductUrl(request, productId));
         return modelAndView;
     }
 
@@ -55,6 +57,14 @@ public class ProductController {
     public ModelAndView updateProduct(@ModelAttribute ProductDto dto) {
         productService.saveUpdateProduct(toEntity(dto));
         return new ModelAndView("redirect:list");
+    }
+
+    private String addNewProductUrl(HttpServletRequest request) {
+        return request.getContextPath() + "/product/";
+    }
+
+    private String updateProductUrl(HttpServletRequest request, int productId) {
+        return request.getContextPath() + "/product/" + productId;
     }
 
     private Product toEntity(ProductDto dto) {
@@ -113,32 +123,5 @@ public class ProductController {
         if (!Strings.isNullOrEmpty(product.getBackLargeImage())) dto.setBackLargeImageKey(product.getBackLargeImage());
 
         return dto;
-    }
-
-    public static class ProductFormConfig {
-        private final String heading;
-        private String action;
-
-        private ProductFormConfig(HttpServletRequest request, String heading) {
-            this.heading = heading;
-            action = constructBaseAction(request);
-        }
-
-        private ProductFormConfig(HttpServletRequest request, String heading, int productId) {
-            this(request, heading);
-            action = action + productId;
-        }
-
-        private String constructBaseAction(HttpServletRequest request) {
-            return request.getContextPath() + "/product/";
-        }
-
-        public String getHeading() {
-            return heading;
-        }
-
-        public String getAction() {
-            return action;
-        }
     }
 }

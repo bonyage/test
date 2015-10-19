@@ -4,9 +4,9 @@
 
 <div class="row-fluid">
     <div class="page-header">
-        <h1>${formConfig.heading}</h1>
+        <h1>${heading}</h1>
     </div>
-    <form:form id="productForm" class="form-horizontal" modelAttribute="product" action="${formConfig.action}" method="POST">
+    <form:form id="productForm" class="form-horizontal" modelAttribute="product" action="${action}" method="POST">
         <form:hidden id="productId" path="id"/>
         <form:hidden id="version" path="version"/>
         <fieldset>
