@@ -11,39 +11,51 @@
         <form:hidden id="version" path="version"/>
         <fieldset>
             <div class="control-group">
-                <form:label path="name" class="control-label" for="name">Name</form:label>
+                <div class="control-label span1">
+                    <form:label path="name" for="name">Name</form:label>
+                </div>
                 <div class="controls">
-                    <form:input id="name" path="name" type="text" class="input-xlarge"/>
+                    <form:input id="name" path="name" type="text" class="span9"/>
                 </div>
             </div>
             <div class="control-group">
-                <form:label path="shortDescription" class="control-label" for="shortDescription">Short Description</form:label>
+                <div class="control-label span1">
+                    <form:label path="shortDescription" for="shortDescription">Short Description</form:label>
+                </div>
                 <div class="controls">
-                    <form:input id="shortDescription" path="shortDescription" type="text" class="input-xlarge"/>
+                    <form:input id="shortDescription" path="shortDescription" type="text" class="span9"/>
                 </div>
             </div>
             <div class="control-group">
-                <form:label path="longDescription" class="control-label" for="longDescription">Long Description</form:label>
+                <div class="control-label span1">
+                    <form:label path="longDescription" for="longDescription">Long Description</form:label>
+                </div>
                 <div class="controls">
-                    <form:textarea id="longDescription" path="longDescription" cols="40" rows="5"></form:textarea>
+                    <form:textarea id="longDescription" path="longDescription" class="span9" cols="40" rows="5"></form:textarea>
                 </div>
             </div>
             <div class="control-group">
-                <form:label path="marketingText" class="control-label" for="marketingText">Marketing Text</form:label>
+                <div class="control-label span1">
+                    <form:label path="marketingText" for="marketingText">Marketing Text</form:label>
+                </div>
                 <div class="controls">
-                    <form:textarea id="marketingText" path="marketingText" cols="40" rows="5"></form:textarea>
+                    <form:textarea id="marketingText" path="marketingText" class="span9" cols="40" rows="5"></form:textarea>
                 </div>
             </div>
             <div class="control-group">
-                <form:label path="sku" class="control-label" for="sku">SKU</form:label>
+                <div class="control-label span1">
+                    <form:label path="sku" for="sku">SKU</form:label>
+                </div>
                 <div class="controls">
-                    <form:input id="sku" path="sku" type="text" class="input-xlarge"/>
+                    <form:input id="sku" path="sku" type="text" class="span9"/>
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="active">Active?</label>
+                <div class="control-label span1">
+                    <label for="active">Active?</label>
+                </div>
                 <div class="controls">
-                    <form:checkbox id="active" path="active"/>
+                    <form:checkbox id="active" path="active" class="span9"/>
                 </div>
             </div>
             <div class="form-actions">
