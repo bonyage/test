@@ -2,6 +2,7 @@ package com.toptier.admin.mvc.controller;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.io.ByteStreams;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -34,7 +35,8 @@ import java.util.UUID;
 @RequestMapping("/images")
 public class ImageController {
 
-    private final String imageStoreRoot = "/Users/wwong/tmp/oz180/images/";
+    @Value("${product.image.store}")
+    private String imageStoreRoot;
 
     @RequestMapping(value = "/{imageKey}", method = RequestMethod.GET)
     @ResponseBody
@@ -91,6 +93,6 @@ public class ImageController {
     }
 
     private String convertToImageFileName(String uuid) {
-        return imageStoreRoot + uuid;
+        return imageStoreRoot + '/' + uuid;
     }
 }
