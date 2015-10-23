@@ -14,8 +14,7 @@
   /*global window, $ */
   $(function () {
     'use strict';
-    // TODO Fix this URL!!!
-    var url = '/admin-web/images/';
+    var imageServiceUrl = '<c:url value="/images/" />';
 
     var imageUpload = function(options) {
       var uploadButton = $('<button/>')
@@ -42,7 +41,7 @@
       }
 
       selectElement('.fileUpload').fileupload({
-        url: url,
+        url: imageServiceUrl,
         dataType: 'json',
         autoUpload: false,
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
@@ -80,8 +79,7 @@
         $.each(data.result.files, function (index, file) {
           if (file.key) {
             $('#' + options.imageKeyId).attr('value', file.key);
-            // TODO Fix this hardcoded URL!!!
-            selectElement('.imageContainer img').attr('src', 'http://localhost:8080/admin-web/images/' + file.key);
+            selectElement('.imageContainer img').attr('src', imageServiceUrl + file.key);
           } else if (file.error) {
             var error = $('<span class="text-danger"/>').text(file.error);
             $(data.context.children()[index])
