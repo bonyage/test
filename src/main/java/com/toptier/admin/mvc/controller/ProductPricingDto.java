@@ -1,5 +1,6 @@
 package com.toptier.admin.mvc.controller;
 
+import com.toptier.core.model.MarketingTag;
 import org.joda.time.LocalDate;
 
 import java.math.BigDecimal;
@@ -14,6 +15,7 @@ public class ProductPricingDto {
     //    private Integer baseUnitPrice;
     private BigDecimal baseUnitPrice;
 //    private Integer baseUnitPriceInCents;
+    private MarketingTag marketingTag;
     private boolean active;
 //
 //    public Integer getId() {
@@ -72,6 +74,14 @@ public class ProductPricingDto {
     public void setBaseUnitPriceInCents(Integer baseUnitPriceInCents) {
         BigDecimal baseUnitPrice = new BigDecimal(baseUnitPriceInCents).divide(CENTS_IN_A_DOLLAR, 2, BigDecimal.ROUND_HALF_UP);
         setBaseUnitPrice(baseUnitPrice);
+    }
+
+    public MarketingTag getMarketingTag() {
+        return marketingTag;
+    }
+
+    public void setMarketingTag(MarketingTag marketingTag) {
+        this.marketingTag = marketingTag;
     }
 
     public boolean isActive() {

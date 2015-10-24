@@ -30,9 +30,9 @@ public class ProductController {
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public ModelAndView newProductForm(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("product.form");
-        modelAndView.addObject("product", new ProductDto());
         modelAndView.addObject("heading", "New Product");
         modelAndView.addObject("action", addNewProductUrl(request));
+        modelAndView.addObject("product", new ProductDto());
         return modelAndView;
     }
 
@@ -47,9 +47,9 @@ public class ProductController {
         Product product = productService.getProduct(productId);
         // TODO Deal with product == null
         ModelAndView modelAndView = new ModelAndView("product.form");
-        modelAndView.addObject("product", toDto(product));
         modelAndView.addObject("heading", "Edit Product");
         modelAndView.addObject("action", updateProductUrl(request, productId));
+        modelAndView.addObject("product", toDto(product));
         return modelAndView;
     }
 

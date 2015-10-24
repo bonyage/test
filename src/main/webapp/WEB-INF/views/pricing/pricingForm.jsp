@@ -12,9 +12,19 @@
       <%--<form:hidden id="version" path="version"/>--%>
       <fieldset>
         <div class="control-group">
-          <form:label path="baseUnitPrice" class="control-label" for="baseUnitPrice">Base Unit Price</form:label>
+          <div class="control-label span1">
+            <form:label path="baseUnitPrice" for="baseUnitPrice">Base Unit Price</form:label>
+          </div>
           <div class="controls">
-            <form:input id="baseUnitPrice" path="baseUnitPrice" type="text" class="input-xlarge"/>
+            <form:input id="baseUnitPrice" path="baseUnitPrice" type="text" class="span9"/>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="control-label span1">
+            <form:label path="marketingTag" for="marketingTag">Market Tag</form:label>
+          </div>
+          <div class="controls">
+            <form:select id="marketingTag" path="marketingTag" items="${marketingTags}" class="span2"/>
           </div>
         </div>
         <%--<div class="control-group">--%>
@@ -62,6 +72,7 @@
       <tr>
         <th>Effective From</th>
         <th>Base Unit Price</th>
+        <th>Marketing Tag</th>
         <th>Status</th>
         <%--<th>Action</th>--%>
       </tr>
@@ -71,6 +82,7 @@
         <tr>
           <td><c:out value="${price.effectiveFrom}"/></td>
           <td><c:out value="${price.baseUnitPrice}"/></td>
+          <td><c:out value="${price.marketingTag.description}"/></td>
           <td>
             <c:choose>
               <c:when test="${price.active}">Active</c:when>
