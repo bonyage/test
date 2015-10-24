@@ -46,7 +46,6 @@
 				</c:forEach>
 				</tbody>
 			</table>
-			<%--<a href="new" class="btn btn-success">Add New Product Pricing</a>--%>
 		</div>
 	</div>
 </div>

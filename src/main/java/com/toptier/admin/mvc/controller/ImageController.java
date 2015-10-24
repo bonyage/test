@@ -64,7 +64,6 @@ public class ImageController {
         List<Map<Object, Object>> imageFileDetails = new ArrayList<>();
         imageFileDetails.add(f);
         return ImmutableMap.builder().put("files", imageFileDetails).build();
-//        return ImmutableMap.builder().put("files", Lists.newArrayList(f)).build();
     }
 
     private byte[] retrieve(String imageKey) throws IOException {

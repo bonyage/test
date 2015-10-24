@@ -1,5 +1,6 @@
 package com.toptier.admin.mvc.controller;
 
+import com.toptier.core.model.MarketingTag;
 import com.toptier.core.model.Product;
 import com.toptier.core.model.ProductPricing;
 import com.toptier.service.PricingService;
@@ -17,7 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/pricing")
@@ -34,27 +40,16 @@ public class PricingController {
 		List<Product> allProducts =  productService.getAllProducts();
 		return new ModelAndView("pricing.list", "allProducts", allProducts);
 	}
-//	public ModelAndView listAllPricing(ModelMap model) {
-//		List<ProductPricing> allPricing = pricingService.getAllProductPricing();
-//		return new ModelAndView("pricing.list", "allPricing", allPricing);
-//	}
 
-//	@RequestMapping(value = "/new", method = RequestMethod.GET)
-//	public ModelAndView newPricingForm(HttpServletRequest request) {
-//		ModelAndView modelAndView = new ModelAndView("pricing.form");
-////		modelAndView.addObject("productPricing", new ProductPricingDto());
-//		modelAndView.addObject("heading", "New Pricing");
-////		modelAndView.addObject("action", addNewPricingUrl(request));
-//		return modelAndView;
-//	}
 	@RequestMapping(value = "/{productId}", method = RequestMethod.GET)
 	public ModelAndView showAllProductPrices(HttpServletRequest request, @PathVariable int productId) {
 		Product product = productService.getProduct(productId);
 		List<ProductPricing> allPrices = pricingService.getAllPricesForProduct(productId);
 		ModelAndView modelAndView = new ModelAndView("pricing.form");
-		modelAndView.addObject("newPrice", new ProductPricingDto());
 		modelAndView.addObject("heading", "Pricing - " + product.getName());
 		modelAndView.addObject("action", productPricingUrl(request, product.getId()));
+		modelAndView.addObject("newPrice", new ProductPricingDto());
+		modelAndView.addObject("marketingTags", getMarketingTagsAsMap());
 		modelAndView.addObject("allPrices", toDtos(allPrices));
 		return modelAndView;
 	}
@@ -82,6 +77,7 @@ public class PricingController {
 				ProductPricingDto dto = new ProductPricingDto();
 				dto.setEffectiveFrom(entity.getEffectiveFrom());
 				dto.setBaseUnitPriceInCents(entity.getBaseUnitPrice());
+				dto.setMarketingTag(entity.getMarketingTag());
 				dto.setActive(entity.isActive());
 				return dto;
 			}
@@ -92,7 +88,29 @@ public class PricingController {
 		ProductPricing entity = new ProductPricing();
 		entity.setEffectiveFrom(dto.getEffectiveFrom());
 		entity.setBaseUnitPrice(dto.getBaseUnitPriceInCents());
+		entity.setMarketingTag(dto.getMarketingTag());
 		entity.setActive(dto.isActive());
 		return entity;
+	}
+
+	private Map<String, String> getMarketingTagsAsMap() {
+		Map<String, String> tags = new LinkedHashMap<>();
+		for (MarketingTag t : getMarketingTagInDisplayOrder()) {
+			tags.put(t.name(), t.getDescription());
+		}
+		return tags;
+	}
+
+	private List<MarketingTag> getMarketingTagInDisplayOrder() {
+		List tags = Arrays.asList(MarketingTag.values());
+		Collections.sort(tags, new Comparator() {
+			@Override
+			public int compare(Object o1, Object o2) {
+				Integer displayOrder1 = ((MarketingTag) o1).getDisplayOrder();
+				Integer displayOrder2 = ((MarketingTag) o2).getDisplayOrder();
+				return displayOrder1.compareTo(displayOrder2);
+			}
+		});
+		return tags;
 	}
 }
