@@ -40,19 +40,7 @@ public class PricingController {
 		List<Product> allProducts =  productService.getAllProducts();
 		return new ModelAndView("pricing.list", "allProducts", allProducts);
 	}
-//	public ModelAndView listAllPricing(ModelMap model) {
-//		List<ProductPricing> allPricing = pricingService.getAllProductPricing();
-//		return new ModelAndView("pricing.list", "allPricing", allPricing);
-//	}
 
-//	@RequestMapping(value = "/new", method = RequestMethod.GET)
-//	public ModelAndView newPricingForm(HttpServletRequest request) {
-//		ModelAndView modelAndView = new ModelAndView("pricing.form");
-////		modelAndView.addObject("productPricing", new ProductPricingDto());
-//		modelAndView.addObject("heading", "New Pricing");
-////		modelAndView.addObject("action", addNewPricingUrl(request));
-//		return modelAndView;
-//	}
 	@RequestMapping(value = "/{productId}", method = RequestMethod.GET)
 	public ModelAndView showAllProductPrices(HttpServletRequest request, @PathVariable int productId) {
 		Product product = productService.getProduct(productId);
