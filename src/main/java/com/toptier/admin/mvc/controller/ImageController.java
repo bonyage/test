@@ -1,8 +1,15 @@
 package com.toptier.admin.mvc.controller;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.common.io.ByteStreams;
-import org.springframework.beans.factory.annotation.Value;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,18 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import com.google.common.collect.ImmutableMap;
+import com.toptier.service.ProductService;
 
 /**
  * Created by wwong on 15-09-3.
@@ -34,19 +31,19 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/images")
 public class ImageController {
+	static final Logger LOGGER = Logger.getLogger(ImageController.class.getName());
+    
+	@Autowired
+	ProductService productService;
 
-    @Value("${product.image.store}")
-    private String imageStoreRoot;
-
-    @RequestMapping(value = "/{imageKey}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{imageKey:.+}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<byte[]> downloadImage(@PathVariable("imageKey") String imageKey) throws IOException {
         byte[] imageContent;
         try {
-            imageContent = retrieve(imageKey);
+            imageContent = productService.getProductImage(imageKey);
         } catch (FileNotFoundException e) {
-            // TODO Deal with image file not file.
-            e.printStackTrace();
+        	LOGGER.log(Level.SEVERE, "error serving image for key: "+imageKey, e);
             throw e;
         }
 
@@ -66,32 +63,13 @@ public class ImageController {
         return ImmutableMap.builder().put("files", imageFileDetails).build();
     }
 
-    private byte[] retrieve(String imageKey) throws IOException {
-        String fileName = convertToImageFileName(imageKey);
-        try (
-                InputStream inStream = new FileInputStream(fileName);
-                ByteArrayOutputStream outStream = new ByteArrayOutputStream()
-        ) {
-            ByteStreams.copy(inStream, outStream);
-            return outStream.toByteArray();
-        }
-    }
 
     private String save(byte[] imageAsBytes) throws IOException {
         // TODO Support different image types.
-        String uuid = UUID.randomUUID().toString();
-        String fileName = convertToImageFileName(uuid);
-        try (
-                InputStream inStream = new ByteArrayInputStream(imageAsBytes);
-                OutputStream outStream = new FileOutputStream(fileName)
-        ) {
-            ByteStreams.copy(inStream, outStream);
-        }
-
+        String uuid = UUID.randomUUID().toString() + ".jpg";
+        
+        productService.saveProductImage(uuid, imageAsBytes);
         return uuid;
     }
 
-    private String convertToImageFileName(String uuid) {
-        return imageStoreRoot + '/' + uuid;
-    }
 }
