@@ -46,7 +46,7 @@ public class PricingController {
 		Product product = productService.getProduct(productId);
 		List<ProductPricing> allPrices = pricingService.getAllPricesForProduct(productId);
 		ModelAndView modelAndView = new ModelAndView("pricing.form");
-		modelAndView.addObject("heading", "Pricing - " + product.getName());
+		modelAndView.addObject("productName", product.getName());
 		modelAndView.addObject("action", productPricingUrl(request, product.getId()));
 		modelAndView.addObject("newPrice", new ProductPricingDto());
 		modelAndView.addObject("marketingTags", getMarketingTagsAsMap());

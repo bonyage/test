@@ -3,16 +3,19 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <ul class="breadcrumb">
-	<li><i class="icon-home"></i> <a href="index.html">Home</a> <i
-		class="icon-angle-right"></i></li>
-	<li><a href="#"><spring:message code="product.breadcrumb" /></a></li>
+	<li>
+		<i class="icon-home"></i>
+		<a href="<c:url value='/'/>"><spring:message code="common.home"/></a>
+		<i class="icon-angle-right"></i>
+	</li>
+	<li><a href="#"><spring:message code="product.breadcrumb"/></a></li>
 </ul>
 
 <div class="row-fluid sortable">
 	<div class="box span12">
 		<div class="box-header" data-original-title>
 			<h2>
-				<i class="halflings-icon user"></i><span class="break"></span>Products
+				<i class="halflings-icon user"></i><span class="break"></span><spring:message code="product.list.heading"/>
 			</h2>
 			<div class="box-icon">
 				<a href="#" class="btn-minimize"><i
@@ -24,9 +27,9 @@
 				class="table table-striped table-bordered bootstrap-datatable datatable">
 				<thead>
 					<tr>
-						<th>Product Name</th>
-						<th>Status</th>
-						<th>Action</th>
+						<th><spring:message code="product.list.header.productName"/></th>
+						<th><spring:message code="product.list.header.status"/></th>
+						<th><spring:message code="product.list.header.action"/></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -35,16 +38,16 @@
 						<td><c:out value="${product.name}"/></td>
 						<td>
 							<c:choose>
-								<c:when test="${product.active}">Active</c:when>
-								<c:otherwise>Archived</c:otherwise>
+								<c:when test="${product.active}"><spring:message code="product.active"/></c:when>
+								<c:otherwise><spring:message code="product.archived"/></c:otherwise>
 							</c:choose>
 						</td>
-						<td><a href="${pageContext.request.contextPath}/product/${product.id}">Edit</a></td>
+						<td><a href="<c:url value='/product/${product.id}'/>"><spring:message code="product.edit"/></a></td>
 					</tr>
 				</c:forEach>
 				</tbody>
 			</table>
-            <a href="new" class="btn btn-success">Add New Product</a>
+            <a href="new" class="btn btn-success"><spring:message code="product.list.action.addNewProduct"/></a>
         </div>
     </div>
 </div>

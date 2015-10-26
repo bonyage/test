@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <div class="row-fluid">
     <div class="page-header">
@@ -12,7 +13,7 @@
         <fieldset>
             <div class="control-group">
                 <div class="control-label span1">
-                    <form:label path="name" for="name">Name</form:label>
+                    <form:label path="name" for="name"><spring:message code="product.form.name"/></form:label>
                 </div>
                 <div class="controls">
                     <form:input id="name" path="name" type="text" class="span9"/>
@@ -20,7 +21,7 @@
             </div>
             <div class="control-group">
                 <div class="control-label span1">
-                    <form:label path="shortDescription" for="shortDescription">Short Description</form:label>
+                    <form:label path="shortDescription" for="shortDescription"><spring:message code="product.form.shortDescription"/></form:label>
                 </div>
                 <div class="controls">
                     <form:input id="shortDescription" path="shortDescription" type="text" class="span9"/>
@@ -28,7 +29,7 @@
             </div>
             <div class="control-group">
                 <div class="control-label span1">
-                    <form:label path="longDescription" for="longDescription">Long Description</form:label>
+                    <form:label path="longDescription" for="longDescription"><spring:message code="product.form.longDescription"/></form:label>
                 </div>
                 <div class="controls">
                     <form:textarea id="longDescription" path="longDescription" class="span9" cols="40" rows="5"></form:textarea>
@@ -36,7 +37,7 @@
             </div>
             <div class="control-group">
                 <div class="control-label span1">
-                    <form:label path="marketingText" for="marketingText">Marketing Text</form:label>
+                    <form:label path="marketingText" for="marketingText"><spring:message code="product.form.marketingText"/></form:label>
                 </div>
                 <div class="controls">
                     <form:textarea id="marketingText" path="marketingText" class="span9" cols="40" rows="5"></form:textarea>
@@ -44,7 +45,7 @@
             </div>
             <div class="control-group">
                 <div class="control-label span1">
-                    <form:label path="sku" for="sku">SKU</form:label>
+                    <form:label path="sku" for="sku"><spring:message code="product.form.sku"/></form:label>
                 </div>
                 <div class="controls">
                     <form:input id="sku" path="sku" type="text" class="span9"/>
@@ -52,15 +53,15 @@
             </div>
             <div class="control-group">
                 <div class="control-label span1">
-                    <label for="active">Active?</label>
+                    <label for="active"><spring:message code="product.form.active"/>?</label>
                 </div>
                 <div class="controls">
                     <form:checkbox id="active" path="active" class="span9"/>
                 </div>
             </div>
             <div class="form-actions">
-                <input type="submit" class="btn btn-success btn-large" value="Save" />
-                <a class="btn" href="<c:url value="/product/list"/>">Cancel</a>
+                <input type="submit" class="btn btn-success btn-large" value="<spring:message code="product.save"/>" />
+                <a class="btn" href="<c:url value="/product/list"/>"><spring:message code="product.cancel"/></a>
             </div>
 
             <form:hidden id="iconImageKey" path="iconImageKey" />
@@ -78,7 +79,7 @@
 </div>
 
 <div id="icon">
-    <h2>Icon</h2>
+    <h2><spring:message code="product.form.image.icon"/></h2>
 
     <div class="imageContainer" style="height: 112px; width: 112px; border: 1px; border-style: solid">
         <c:choose>
@@ -109,7 +110,7 @@
 </div>
 
 <div id="frontSmall">
-    <h2>Front - Small</h2>
+    <h2><spring:message code="product.form.image.front.small"/></h2>
 
     <div class="imageContainer" style="height: 244px; width: 244px; border: 1px; border-style: solid">
         <c:choose>
@@ -140,7 +141,7 @@
 </div>
 
 <div id="frontMedium">
-    <h2>Front - Medium</h2>
+    <h2><spring:message code="product.form.image.front.medium"/></h2>
 
     <div class="imageContainer" style="height: 440px; width: 440px; border: 1px; border-style: solid">
         <c:choose>
@@ -171,7 +172,7 @@
 </div>
 
 <div id="frontLarge">
-    <h2>Front - Large</h2>
+    <h2><spring:message code="product.form.image.front.large"/></h2>
 
     <div class="imageContainer" style="height: 722px; width: 722px; border: 1px; border-style: solid">
         <c:choose>
@@ -202,7 +203,7 @@
 </div>
 
 <div id="sideSmall">
-    <h2>Side - Small</h2>
+    <h2><spring:message code="product.form.image.side.small"/></h2>
 
     <div class="imageContainer" style="height: 244px; width: 244px; border: 1px; border-style: solid">
         <c:choose>
@@ -233,7 +234,7 @@
 </div>
 
 <div id="sideMedium">
-    <h2>Side - Medium</h2>
+    <h2><spring:message code="product.form.image.side.medium"/></h2>
 
     <div class="imageContainer" style="height: 440px; width: 440px; border: 1px; border-style: solid">
         <c:choose>
@@ -264,7 +265,7 @@
 </div>
 
 <div id="sideLarge">
-    <h2>Side - Large</h2>
+    <h2><spring:message code="product.form.image.side.large"/></h2>
 
     <div class="imageContainer" style="height: 722px; width: 722px; border: 1px; border-style: solid">
         <c:choose>
@@ -295,7 +296,7 @@
 </div>
 
 <div id="backSmall">
-    <h2>Back - Small</h2>
+    <h2><spring:message code="product.form.image.back.small"/></h2>
 
     <div class="imageContainer" style="height: 244px; width: 244px; border: 1px; border-style: solid">
         <c:choose>
@@ -326,7 +327,7 @@
 </div>
 
 <div id="backMedium">
-    <h2>Back - Medium</h2>
+    <h2><spring:message code="product.form.image.back.medium"/></h2>
 
     <div class="imageContainer" style="height: 440px; width: 440px; border: 1px; border-style: solid">
         <c:choose>
@@ -357,7 +358,7 @@
 </div>
 
 <div id="backLarge">
-    <h2>Back - Large</h2>
+    <h2><spring:message code="product.form.image.back.large"/></h2>
 
     <div class="imageContainer" style="height: 722px; width: 722px; border: 1px; border-style: solid">
         <c:choose>

@@ -4,6 +4,8 @@ import com.google.common.base.Strings;
 import com.toptier.core.model.Product;
 import com.toptier.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,13 +15,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/product")
 public class ProductController {
 
 	@Autowired
-	ProductService productService;
+	private ProductService productService;
+
+    @Autowired
+    private MessageSource messageSource;
 
 	@RequestMapping(value = { "/list" }, method = RequestMethod.GET)
 	public ModelAndView listAllProducts() {
@@ -30,7 +36,7 @@ public class ProductController {
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public ModelAndView newProductForm(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("product.form");
-        modelAndView.addObject("heading", "New Product");
+        modelAndView.addObject("heading", translatedMessage("product.form.heading.new"));
         modelAndView.addObject("action", addNewProductUrl(request));
         modelAndView.addObject("product", new ProductDto());
         return modelAndView;
@@ -47,7 +53,7 @@ public class ProductController {
         Product product = productService.getProduct(productId);
         // TODO Deal with product == null
         ModelAndView modelAndView = new ModelAndView("product.form");
-        modelAndView.addObject("heading", "Edit Product");
+        modelAndView.addObject("heading", translatedMessage("product.form.heading.edit"));
         modelAndView.addObject("action", updateProductUrl(request, productId));
         modelAndView.addObject("product", toDto(product));
         return modelAndView;
@@ -123,5 +129,12 @@ public class ProductController {
         if (!Strings.isNullOrEmpty(product.getBackLargeImage())) dto.setBackLargeImageKey(product.getBackLargeImage());
 
         return dto;
+    }
+
+    private String translatedMessage(String key) {
+        // TODO Perhaps refactor this into a proper class?
+        // See: http://stackoverflow.com/questions/6246381/getting-localized-message-from-resourcebundle-via-annotations-in-spring-framewor
+        Locale locale = LocaleContextHolder.getLocale();
+        return messageSource.getMessage(key, new Object[0], locale);
     }
 }
