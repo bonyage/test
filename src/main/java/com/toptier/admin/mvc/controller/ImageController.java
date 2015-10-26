@@ -57,6 +57,7 @@ public class ImageController {
     @ResponseBody
     public Map<Object, Object> uploadImage(@RequestParam("imageFile") MultipartFile imageFile) throws IOException {
         String key = save(imageFile.getBytes());
+        // TODO Fix the following dummy values: someName, 123456 etc.
         Map<Object, Object> f = ImmutableMap.builder().put("name", "someName").put("size", 123456).put("key", key).build();
         List<Map<Object, Object>> imageFileDetails = new ArrayList<>();
         imageFileDetails.add(f);
