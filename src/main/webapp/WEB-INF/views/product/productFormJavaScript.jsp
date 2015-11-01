@@ -14,7 +14,7 @@
   /*global window, $ */
   $(function () {
     'use strict';
-    var imageServiceUrl = '<c:url value="/images/" />';
+    var imageServiceUrl = '<c:url value="/images/product/" />';
 
     var imageUpload = function(options) {
       var uploadButton = $('<button/>')

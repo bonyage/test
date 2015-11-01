@@ -211,6 +211,6 @@ public class ProductDto {
     }
 
     private String constructImageUrl(String imageKey) {
-        return !Strings.isNullOrEmpty(imageKey) ? "/images/" + imageKey : null;
+        return !Strings.isNullOrEmpty(imageKey) ? "/images/product/" + imageKey : null;
     }
 }
