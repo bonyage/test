@@ -11,7 +11,22 @@
 	<!-- DispatcherServlet Context: defines this servlet's request-processing 
 		infrastructure -->
 
-	<context:property-placeholder location="classpath:application.properties" />
+	<context:property-placeholder order="0"
+								  ignore-resource-not-found="true"
+								  ignore-unresolvable="true"/>
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath*:application.properties</value>
+				<value>classpath*:${env}.properties</value>
+				<value>classpath*:${user}.properties</value>
+			</list>
+		</property>
+		<property name="localOverride" value="true"/>
+		<property name="order" value="0"/>
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+	</bean>
 
 	<bean id="messageSource"
         class="org.springframework.context.support.ReloadableResourceBundleMessageSource">

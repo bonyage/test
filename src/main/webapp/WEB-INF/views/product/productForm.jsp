@@ -59,6 +59,16 @@
                     <form:checkbox id="active" path="active" class="span9"/>
                 </div>
             </div>
+            <c:if test="${!empty product.id}">
+                <div class="control-group">
+                    <div class="control-label span1">
+                        <label for="qrCode"><spring:message code="product.form.qrCode"/></label>
+                    </div>
+                    <div class="controls">
+                        <img id="qrCode" src="<c:url value="/images/qrcode/${product.id}"/>" width="200" height="200"/>
+                    </div>
+                </div>
+            </c:if>
             <div class="form-actions">
                 <input type="submit" class="btn btn-success btn-large" value="<spring:message code="product.save"/>" />
                 <a class="btn" href="<c:url value="/product/list"/>"><spring:message code="product.cancel"/></a>
