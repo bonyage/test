@@ -36,7 +36,7 @@ public class PricingController {
 	private PricingService pricingService;
 
 	@RequestMapping(value = { "/list" }, method = RequestMethod.GET)
-	public ModelAndView listAllProducts(ModelMap model) {
+	public ModelAndView listAllProducts() {
 		List<Product> allProducts =  productService.getAllProducts();
 		return new ModelAndView("pricing.list", "allProducts", allProducts);
 	}

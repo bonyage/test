@@ -22,18 +22,21 @@
 	<definition name="agent.list" extends="defaultTemplate">
 	    <put-attribute name="body"	value="/WEB-INF/views/agent/agentList.jsp" />
 	</definition>
+
 	<definition name="inventory.list" extends="defaultTemplate">
 	    <put-attribute name="body"	value="/WEB-INF/views/inventory/inventoryList.jsp" />
 	</definition>
-	
+
+	<definition name="stockLevel.form" extends="defaultTemplate">
+		<put-attribute name="body"	value="/WEB-INF/views/inventory/stockLevelForm.jsp" />
+	</definition>
+
 	<definition name="pricing.list" extends="defaultTemplate">
 	    <put-attribute name="body"	value="/WEB-INF/views/pricing/pricingList.jsp" />
 	</definition>
 
 	<definition name="pricing.form" extends="defaultTemplate">
-		<!--<put-attribute name="pageSpecificCss" value="/WEB-INF/views/product/productFormCss.jsp" />-->
 		<put-attribute name="body"	value="/WEB-INF/views/pricing/pricingForm.jsp" />
-		<!--<put-attribute name="pageSpecificJavascript" value="/WEB-INF/views/product/productFormJavaScript.jsp" />-->
 	</definition>
 
 	<definition name="order.list" extends="defaultTemplate">
