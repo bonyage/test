@@ -47,14 +47,7 @@
 							</c:choose>
 						</td>
 						<td>
-							<c:choose>
-								<c:when test="${product.stockLevelDefined}">
-									<a href="<c:url value='/inventory/${product.productId}'/>"><spring:message code="inventory.update"/></a>
-								</c:when>
-								<c:otherwise>
-									<a href="<c:url value='/inventory/${product.productId}'/>">Add</a>
-								</c:otherwise>
-							</c:choose>
+							<a href="<c:url value='/inventory/${product.productId}'/>"><spring:message code="inventory.update"/></a>
 						</td>
 					</tr>
 				</c:forEach>

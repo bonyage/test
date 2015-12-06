@@ -4,7 +4,6 @@ public class StockLevelDto {
     private Integer productId;
     private String productName;
     private boolean activeProduct;
-    private boolean stockLevelDefined;
     private int quantity;
     private String unit;
 
@@ -30,14 +29,6 @@ public class StockLevelDto {
 
     public void setActiveProduct(boolean activeProduct) {
         this.activeProduct = activeProduct;
-    }
-
-    public boolean isStockLevelDefined() {
-        return stockLevelDefined;
-    }
-
-    public void setStockLevelDefined(boolean stockLevelDefined) {
-        this.stockLevelDefined = stockLevelDefined;
     }
 
     public int getQuantity() {
