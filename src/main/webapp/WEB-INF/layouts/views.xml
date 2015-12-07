@@ -43,6 +43,10 @@
 	    <put-attribute name="body"	value="/WEB-INF/views/order/orders.jsp" />
 	</definition>
 
+	<definition name="order.new" extends="defaultTemplate">
+		<put-attribute name="body"	value="/WEB-INF/views/order/new.jsp" />
+	</definition>
+
 	<definition name="order.edit" extends="defaultTemplate">
 		<put-attribute name="body"	value="/WEB-INF/views/order/order.jsp" />
 	</definition>

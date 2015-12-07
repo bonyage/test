@@ -56,22 +56,22 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><c:out value="${order.customer.name}"/></td>
-                                <td><c:out value="${order.customer.email}"/></td>
-                                <td><joda:format value="${order.orderDate}" style="M-"/></td>
-                                <td>
-                                    <div class="form-group">
-                                        <select id="status" class="form-control" name="status" onchange="showOrHideSaveStatusButton('${order.status.name()}')">
-                                            <c:forEach items="${order.validStatuses}" var="orderStatus">
-                                                <option value="${orderStatus.name()}" ${order.status.name() == orderStatus.name() ? 'selected="selected"' : ''}>${orderStatus.name()}</option>
-                                            </c:forEach>
-                                        </select>
-                                        <button type="submit" id="orderStatusSaveButton" class="hidden btn btn-primary">Update</button>
-                                    </div>
-                                </td>
-                                <td><spring:message code="order.product.currency"/><c:out value="${order.total}"/></td>
-                            </tr>
+                        <tr>
+                            <td><c:out value="${order.customerName}"/></td>
+                            <td><c:out value="${order.customerEmail}"/></td>
+                            <td><joda:format value="${order.invoiceDate}" style="M-"/></td>
+                            <td>
+                                <div class="form-group">
+                                    <select id="status" class="form-control" name="status" onchange="showOrHideSaveStatusButton('${order.status.name()}')">
+                                        <c:forEach items="${order.validStatuses}" var="orderStatus">
+                                            <option value="${orderStatus.name()}" ${order.status.name() == orderStatus.name() ? 'selected="selected"' : ''}>${orderStatus.name()}</option>
+                                        </c:forEach>
+                                    </select>
+                                    <button type="submit" id="orderStatusSaveButton" class="hidden btn btn-primary" name="action" value="update-order-status">Update</button>
+                                </div>
+                            </td>
+                            <td><spring:message code="order.product.currency"/><c:out value="${order.total}"/></td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -79,7 +79,7 @@
                     <div class="box span12">
                         <div class="box-header" data-original-title>
                             <h2>
-                                <i class="halflings-icon barcode"></i><span class="break"></span><spring:message code="order.order.products"/><c:out value=" (${fn:length(order.orderLines)})"/>
+                                <i class="halflings-icon barcode"></i><span class="break"></span><spring:message code="order.order.products"/><c:out value=" (${fn:length(order.items)})"/>
                             </h2>
 
                             <div class="box-icon">
@@ -100,14 +100,14 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <c:forEach var="orderline" items="${order.orderLines}">
+                                    <c:forEach var="orderline" items="${order.items}">
                                         <tr>
-                                            <td><c:out value="${orderline.productPricing.product.productCode}"/></td>
-                                            <td><c:out value="${orderline.productPricing.product.name}"/></td>
-                                            <td><c:out value="${orderline.productPricing.product.sku}"/></td>
+                                            <td><c:out value="${orderline.productCode}"/></td>
+                                            <td><c:out value="${orderline.productName}"/></td>
+                                            <td><c:out value="${orderline.sku}"/></td>
                                             <td><c:out value="${orderline.quantity}"/></td>
-                                            <td><spring:message code="order.product.currency"/><c:out value="${orderline.productPricing.baseUnitPrice / 100}"/></td>
-                                            <td><spring:message code="order.product.currency"/><c:out value="${orderline.subtotal}"/></td>
+                                            <td><spring:message code="order.product.currency"/><c:out value="${orderline.price / 100}"/></td>
+                                            <td><spring:message code="order.product.currency"/><c:out value="${orderline.subTotal}"/></td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
@@ -140,7 +140,7 @@
                                     <tbody>
                                     <tr>
                                         <td><spring:message code="order.order.orderDate"/></td>
-                                        <td><joda:format value="${order.orderDate}" style="M-" /></td>
+                                        <td><joda:format value="${order.invoiceDate}" style="M-" /></td>
                                     </tr>
                                     <tr>
                                         <td><spring:message code="order.order.confirmedDate"/></td>
@@ -158,9 +158,9 @@
                                         <td><spring:message code="order.order.deliveryNotes"/></td>
                                         <td>
                                             <div class="form-group">
-                                                <textarea disabled class="form-control" name="deliveryNote" rows="3" cols="30" id="deliveryNote" maxlength="399"><c:out value="${order.deliveryNotes}"/></textarea>
+                                                <textarea disabled class="form-control" name="deliveryNote" rows="3" cols="30" id="deliveryNote" maxlength="399"><c:out value="${order.deliveryNote}"/></textarea>
                                                 <button type="button" id="deliveryNoteEditButton" onclick="enableDeliveryNoteEditing()" class="btn btn-primary">Edit</button>
-                                                <button type="submit" id="deliveryNoteSaveButton" class="btn btn-primary hidden">Update</button>
+                                                <button type="submit" id="deliveryNoteSaveButton" class="btn btn-primary hidden" name="action" value="update-delivery-note">Update</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -195,10 +195,9 @@
                                         <td><spring:message code="order.order.address"/></td>
                                         <td>
                                             <address>
-                                                <strong><c:out value="${order.customer.name}"/></strong><br>
-                                                <c:out value="${order.customer.address.addrLines}"/><br>
-                                                <c:out value="${order.customer.address.region}"/> <c:out value="${order.customer.address.postcode}"/><br>
-                                                <abbr title="Phone">P:</abbr> <c:out value="${order.customer.phone}"/>
+                                                <strong><c:out value="${order.customerName}"/></strong><br>
+                                                <c:out value="${order.deliveryAddress}"/><br>
+                                                <abbr title="Phone">P:</abbr>
                                             </address>
                                         </td>
                                     </tr>
@@ -236,7 +235,7 @@
                                             <div class="form-group">
                                                 <textarea disabled class="form-control" name="deliveryAddress" rows="5" cols="60" id="deliveryAddress" maxlength="999"><c:out value="${order.deliveryAddress}"/></textarea>
                                                 <button type="button" id="deliveryAddressEditButton" onclick="enableDeliveryAddressEditing()" class="btn btn-primary">Edit</button>
-                                                <button type="submit" id="deliveryAddressSaveButton" class="btn btn-primary hidden">Update</button>
+                                                <button type="submit" id="deliveryAddressSaveButton" class="btn btn-primary hidden" name="action" value="update-delivery-address">Update</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -248,9 +247,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="box-content">
-        <a class="btn btn-danger" href="${pageContext.request.contextPath}/orders/${order.id}">Update</a> <a class="btn btn-danger" href="${pageContext.request.contextPath}/orders/${order.id}">Update and Finished</a>
     </div>
 </form:form>
 
