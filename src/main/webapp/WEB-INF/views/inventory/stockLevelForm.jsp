@@ -13,18 +13,19 @@
             <fieldset>
                 <div class="control-group">
                     <div class="control-label span1">
-                        <form:label path="quantity" for="quantity"><spring:message code="inventory.form.quantity"/></form:label>
+                        <form:label path="inventory.intakeBaseUnitStockLevel" for="quantity"><spring:message code="inventory.form.quantity"/></form:label>
                     </div>
                     <div class="controls">
-                        <form:input id="quantity" path="quantity" type="text" class="span9"/>
+                        <form:input id="quantity" path="inventory.intakeBaseUnitStockLevel" type="text" class="span5"/>
+                        <form:select path="inventory.productUnitCode" items="${allProductUnitsAsMap}" class="span5"></form:select>
                     </div>
                 </div>
                 <div class="control-group">
                     <div class="control-label span1">
-                        <form:label path="unit" for="unit"><spring:message code="inventory.form.unit"/></form:label>
+                        <form:label path="inventory.baseUnitName" for="unit"><spring:message code="inventory.form.unit"/></form:label>
                     </div>
                     <div class="controls">
-                        <form:input id="unit" path="unit" type="text" class="span9"/>
+                        <form:input id="unit" path="inventory.baseUnitName" type="text" class="span9"/>
                     </div>
                 </div>
 

@@ -38,8 +38,8 @@
 				<c:forEach var="product" items="${inventory}">
 					<tr>
 						<td><c:out value="${product.productName}"/></td>
-						<td><c:out value="${product.quantity}"/></td>
-						<td><c:out value="${product.unit}"/></td>
+						<td><c:out value="${product.inventory.intakeBaseUnitStockLevel}"/></td>
+						<td><c:out value="${product.inventory.baseUnitName}"/></td>
 						<td>
 							<c:choose>
 								<c:when test="${product.activeProduct}"><spring:message code="product.active"/></c:when>
@@ -47,7 +47,14 @@
 							</c:choose>
 						</td>
 						<td>
-							<a href="<c:url value='/inventory/${product.productId}'/>"><spring:message code="inventory.update"/></a>
+							<c:choose>
+								<c:when test="${not empty product.inventory}">
+									<a href="<c:url value='/inventory/${product.productId}'/>"><spring:message code="inventory.update"/></a>
+								</c:when>
+								<c:otherwise>
+									<a href="<c:url value='/inventory/${product.productId}'/>"><spring:message code="inventory.add"/></a>
+								</c:otherwise>
+							</c:choose>
 						</td>
 					</tr>
 				</c:forEach>
