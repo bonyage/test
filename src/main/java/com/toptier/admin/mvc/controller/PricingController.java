@@ -10,7 +10,6 @@ import org.apache.commons.collections.Transformer;
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +35,7 @@ public class PricingController {
 	private PricingService pricingService;
 
 	@RequestMapping(value = { "/list" }, method = RequestMethod.GET)
-	public ModelAndView listAllProducts(ModelMap model) {
+	public ModelAndView listAllProducts() {
 		List<Product> allProducts =  productService.getAllProducts();
 		return new ModelAndView("pricing.list", "allProducts", allProducts);
 	}

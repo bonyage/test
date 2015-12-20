@@ -44,7 +44,7 @@ public class ProductController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ModelAndView addNewProduct(@ModelAttribute ProductDto product) {
-        productService.saveCreateProduct(toEntity(product));
+        productService.saveCreateProduct(createEntityFromDto(product));
         return new ModelAndView("redirect:list");
     }
 
@@ -60,8 +60,10 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/{productId}", method = RequestMethod.POST)
-    public ModelAndView updateProduct(@ModelAttribute ProductDto dto) {
-        productService.saveUpdateProduct(toEntity(dto));
+    public ModelAndView updateProduct(@PathVariable int productId, @ModelAttribute ProductDto dto) {
+        Product product = productService.getProduct(productId);
+        updateEntityFromDto(product, dto);
+        productService.saveUpdateProduct(product);
         return new ModelAndView("redirect:list");
     }
 
@@ -73,8 +75,13 @@ public class ProductController {
         return request.getContextPath() + "/product/" + productId;
     }
 
-    private Product toEntity(ProductDto dto) {
+    private Product createEntityFromDto(ProductDto dto) {
         Product product = new Product();
+        updateEntityFromDto(product, dto);
+        return product;
+    }
+
+    private void updateEntityFromDto(Product product, ProductDto dto) {
         product.setId(dto.getId());
         product.setVersion(dto.getVersion());
         product.setName(dto.getName());
@@ -98,8 +105,6 @@ public class ProductController {
         if (!Strings.isNullOrEmpty(dto.getBackSmallImageKey())) product.setBackSmallImage(dto.getBackSmallImageKey());
         if (!Strings.isNullOrEmpty(dto.getBackMediumImageKey())) product.setBackMediumImage(dto.getBackMediumImageKey());
         if (!Strings.isNullOrEmpty(dto.getBackLargeImageKey())) product.setBackLargeImage(dto.getBackLargeImageKey());
-
-        return product;
     }
 
     private ProductDto toDto(Product product) {
