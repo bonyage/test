@@ -83,7 +83,6 @@ public class PricingController {
 		price.setMarketingBaseUnitPrice(dto.getMarketBaseUnitPriceInCents());
 		price.setMarketingTag(dto.getMarketingTag());
 		price.setActive(dto.isActive());
-		price.setStockedProduct(dto.isStockedProduct());
 		pricingService.savesOrUpdatePrice(price);
 		return new ModelAndView("redirect:/pricing/" + dto.getProductId());
 	}
@@ -106,7 +105,6 @@ public class PricingController {
 		entity.setMarketingBaseUnitPrice(dto.getMarketBaseUnitPriceInCents());
 		entity.setMarketingTag(dto.getMarketingTag());
 		entity.setActive(dto.isActive());
-		entity.setStockedProduct(dto.isStockedProduct());
 		return entity;
 	}
 	
@@ -120,7 +118,6 @@ public class PricingController {
 		dto.setMarketingBaseUnitPriceInCents(entity.getMarketingBaseUnitPrice());
 		dto.setMarketingTag(entity.getMarketingTag());
 		dto.setActive(entity.isActive());
-		dto.setStockedProduct(entity.isStockedProduct());
 		return dto;
 	}
 

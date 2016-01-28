@@ -24,7 +24,7 @@
             <form:label path="baseUnitPrice" for="baseUnitPrice"><spring:message code="pricing.form.baseUnitPrice"/></form:label>
           </div>
           <div class="controls">
-            <form:input id="baseUnitPrice" path="baseUnitPrice" type="text" class="span3"/>
+            <form:input id="baseUnitPrice" path="baseUnitPrice" type="number" readonly="${mode eq 'update'}" class="span3"/>
           </div>
         </div>
         <div class="control-group">
@@ -32,7 +32,7 @@
             <form:label path="marketingBaseUnitPrice" for="marketingBaseUnitPrice"><spring:message code="pricing.form.marketingBaseUnitPrice"/></form:label>
           </div>
           <div class="controls">
-            <form:input id="marketingBaseUnitPrice" path="marketingBaseUnitPrice" type="text" class="span3"/>
+            <form:input id="marketingBaseUnitPrice" path="marketingBaseUnitPrice" readonly="${mode eq 'update'}" type="number" class="span3"/>
           </div>
         </div>
         <div class="control-group">
@@ -41,14 +41,6 @@
           </div>
           <div class="controls">
             <form:select id="marketingTag" path="marketingTag" items="${marketingTags}" class="span2"/>
-          </div>
-        </div>
-        <div class="control-group">
-          <div class="control-label span1">
-            <form:label path="stockedProduct" for="stockedProduct"><spring:message code="pricing.form.stockedProduct"/></form:label>
-          </div>
-          <div class="controls">
-            <form:checkbox id="stockedProduct" path="stockedProduct" class="span9"/>                    
           </div>
         </div>
         <div class="control-group">
@@ -85,7 +77,6 @@
 	        <th><spring:message code="pricing.history.baseUnitPrice"/></th>
 	        <th><spring:message code="pricing.history.marketingBaseUnitPrice"/></th>
 	        <th><spring:message code="pricing.history.marketingTag"/></th>
-	        <th><spring:message code="pricing.history.stockedProduct"/></th>
 	        <th><spring:message code="pricing.history.status"/></th>
 	      </tr>
 	      </thead>
@@ -97,12 +88,6 @@
 	          <td><c:out value="${price.baseUnitPrice}"/></td>
 	          <td><c:out value="${price.marketingBaseUnitPrice}"/></td>
 	          <td><c:out value="${price.marketingTag.description}"/></td>
-	          <td>
-	            <c:choose>
-	              <c:when test="${price.stockedProduct}"><spring:message code="common.yes"/></c:when>
-	              <c:otherwise><spring:message code="common.no"/></c:otherwise>
-	            </c:choose>
-	          </td>
 	          <td>
 	            <c:choose>
 	              <c:when test="${price.active}"><spring:message code="common.yes"/></c:when>
