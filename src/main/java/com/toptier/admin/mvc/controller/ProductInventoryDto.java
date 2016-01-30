@@ -77,5 +77,6 @@ public class ProductInventoryDto {
         public void setIntakeBaseUnitStockLevel(int intakeBaseUnitStockLevel) {
             this.intakeBaseUnitStockLevel = intakeBaseUnitStockLevel;
         }
+        
     }
 }
