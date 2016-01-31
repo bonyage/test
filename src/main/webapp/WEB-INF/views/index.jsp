@@ -24,17 +24,20 @@
 				</div>
 			</div>
 			<div class="box-content">
-				<table class="table-bordered">
-					<div class="control-group">
-						<label class="control-label" for="discount"><spring:message
-								code="index.order.list.header.number" /></label>
-
-						<div class="controls">
-							<a href="orders?orderStatus=NEW"><input type="text" id="number" class="form-control" value=${newOrderNum}
-								readonly /></a>
-						</div>
-					</div>
-				</table>
+				<table
+					class="table table-striped table-bordered">
+				<thead>
+				<tr>
+					<th><spring:message code="index.order.list.header.number"/></th>
+				</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><a href="orders?orderStatus=NEW"><span>${newOrderNum}
+								 </span></a></td>
+					</tr>
+				</tbody>
+			</table>
 			</div>
 		</div>
 	</div>
@@ -58,7 +61,7 @@
 					<thead>
 						<tr>
 							<th><spring:message code="inventory.list.header.productName" /></th>
-							<th><spring:message code="inventory.list.header.productUnit" /></th>
+							<th><spring:message code="inventory.list.header.stockLevel" /></th>
 							<th><spring:message code="inventory.list.header.unit" /></th>
 						</tr>
 					</thead>
@@ -68,7 +71,7 @@
 								<td><a href="inventory/${product.productId}"><c:out
 											value="${product.productName}" /></a></td>
 								<td><c:out
-										value="${Integer.parseInt(product.inventory.productUnitCode.substring(1,3))*product.inventory.intakeBaseUnitStockLevel}" /></td>
+										value="${product.inventory.intakeBaseUnitStockLevel}" /></td>
 								<td><c:out value="${product.inventory.baseUnitName}" /></td>
 							</tr>
 						</c:forEach>
