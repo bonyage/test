@@ -56,6 +56,9 @@
 					<tr>
 						<td>
 							<c:choose>
+								<c:when test="${order.status.name() == 'CANCELED' }">
+									<i class="glyphicons-icon ban"></i>
+								</c:when>
 								<c:when test="${order.status.name() == 'NEW'}">
 									<i class="glyphicons-icon circle_question_mark"></i>
 								</c:when>
@@ -80,7 +83,12 @@
 						<td><c:out value="${fn:length(order.orderLines)} item(s)"/></td>
 						<td><c:out value="${order.customer.name}, ${order.customer.address.addrLines}, ${order.customer.address.region} ${order.customer.address.postcode}"/></td>
 						<td><joda:format value="${order.orderDate}" style="M-" /></td>
-						<td><a href="<c:url value='orders/${order.id}'/>" class="btn btn-primary btn-sm">Modify</a></td>
+						<td >
+							<c:if test="${order.status.name() != 'CANCELED' }">
+							  <a href="<c:url value='orders/modify/${order.id}'/>" class="btn btn-primary btn-sm">Modify</a>
+							  <a href="<c:url value='orders/cancel/${order.id}'/>" class="btn btn-warning btn-sm">Cancel</a>
+							</c:if>
+						</td>
 					</tr>
 				</c:forEach>
 				</tbody>
