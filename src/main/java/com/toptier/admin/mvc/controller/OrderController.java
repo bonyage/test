@@ -47,11 +47,20 @@ public class OrderController {
 		return mav;
 	}
 
-	@RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
-	public ModelAndView orders(ModelMap model, @PathVariable("id") Integer id) {
+	@RequestMapping(value = {"/modify/{id}"}, method = RequestMethod.GET)
+	public ModelAndView modifyOrders(ModelMap model, @PathVariable("id") Integer id) {
 		CustomerOrder order = orderService.getOrderById(id);
 		ModelAndView mav = new ModelAndView("order.edit");
 		mav.addObject("order", customOrderToDTO(order));
+		return mav;	
+	}
+	
+	@RequestMapping(value = {"/cancel/{id}"}, method = RequestMethod.GET)
+	public ModelAndView cancelOrders(ModelMap model, @PathVariable("id") Integer id) {
+		orderService.cancelOrder(id);
+		List<CustomerOrder> orders = orderService.getOrdersByStatus(null);
+		ModelAndView mav = new ModelAndView("order.list");
+		mav.addObject("orders",orders);
 		return mav;
 	}
 
