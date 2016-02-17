@@ -46,8 +46,9 @@ public class PricingController {
 		List<ProductPricing> allPrices = pricingService.getAllPricesForProduct(productId);
 		ModelAndView modelAndView = new ModelAndView("pricing.form");
 		modelAndView.addObject("productName", product.getName());
-		modelAndView.addObject("action", productPricingUrl(request, product.getId()));
-		modelAndView.addObject("newPrice", new ProductPricingDto());
+		modelAndView.addObject("productId", productId);		
+		modelAndView.addObject("mode", "new");		
+		modelAndView.addObject("priceDTO", new ProductPricingDto(true));
 		modelAndView.addObject("marketingTags", getMarketingTagsAsMap());
 		modelAndView.addObject("allPrices", toDtos(allPrices));
 		return modelAndView;
@@ -59,26 +60,40 @@ public class PricingController {
 		Product product = productService.getProduct(productId);
 		ProductPricing productPricing = toEntity(dto);
 		productPricing.setProduct(product);
-		productPricing.setActive(true);
-		pricingService.saveAddPrice(productPricing);
-		return new ModelAndView("redirect:" + productId);
+		pricingService.savesOrUpdatePrice(productPricing);
+		return new ModelAndView("redirect:/pricing/" + productId);
 	}
-
-	private String productPricingUrl(HttpServletRequest request, int productId) {
-		return request.getContextPath() + "/pricing/" + productId;
+	
+	@RequestMapping(value = "/item/{priceId}", method = RequestMethod.GET)
+	public ModelAndView showProductPricingItem(HttpServletRequest request, @PathVariable int priceId ) {
+		ProductPricing price = pricingService.getPrice(priceId);
+		ModelAndView modelAndView = new ModelAndView("pricing.form");
+		modelAndView.addObject("productName", price.getProduct().getName());
+		modelAndView.addObject("productId", price.getProduct().getId());		
+		modelAndView.addObject("mode", "update");		
+		modelAndView.addObject("priceDTO", toDTO(price));
+		modelAndView.addObject("marketingTags", getMarketingTagsAsMap());
+		return modelAndView;
 	}
+	
+	@RequestMapping(value = "/item/{priceId}", method = RequestMethod.POST)
+	public ModelAndView saveProductPricingItem(HttpServletRequest request, @ModelAttribute ProductPricingDto dto) {
+		ProductPricing price = pricingService.getPrice(dto.getPriceId());
+		price.setBaseUnitPrice(dto.getBaseUnitPriceInCents());
+		price.setMarketingBaseUnitPrice(dto.getMarketBaseUnitPriceInCents());
+		price.setMarketingTag(dto.getMarketingTag());
+		price.setActive(dto.isActive());
+		pricingService.savesOrUpdatePrice(price);
+		return new ModelAndView("redirect:/pricing/" + dto.getProductId());
+	}
+	
 
 	private List<ProductPricingDto> toDtos(List<ProductPricing> allPrices) {
 		return (List<ProductPricingDto>) CollectionUtils.collect(allPrices, new Transformer() {
 			@Override
 			public Object transform(Object input) {
 				ProductPricing entity = (ProductPricing) input;
-				ProductPricingDto dto = new ProductPricingDto();
-				dto.setEffectiveFrom(entity.getEffectiveFrom());
-				dto.setBaseUnitPriceInCents(entity.getBaseUnitPrice());
-				dto.setMarketingTag(entity.getMarketingTag());
-				dto.setActive(entity.isActive());
-				return dto;
+				return toDTO(entity);
 			}
 		});
 	}
@@ -87,9 +102,23 @@ public class PricingController {
 		ProductPricing entity = new ProductPricing();
 		entity.setEffectiveFrom(dto.getEffectiveFrom());
 		entity.setBaseUnitPrice(dto.getBaseUnitPriceInCents());
+		entity.setMarketingBaseUnitPrice(dto.getMarketBaseUnitPriceInCents());
 		entity.setMarketingTag(dto.getMarketingTag());
 		entity.setActive(dto.isActive());
 		return entity;
+	}
+	
+	private ProductPricingDto toDTO(ProductPricing entity)
+	{
+		ProductPricingDto dto = new ProductPricingDto();
+		dto.setProductId(entity.getProduct().getId());
+		dto.setPriceId(entity.getId());
+		dto.setEffectiveFrom(entity.getEffectiveFrom());
+		dto.setBaseUnitPriceInCents(entity.getBaseUnitPrice());
+		dto.setMarketingBaseUnitPriceInCents(entity.getMarketingBaseUnitPrice());
+		dto.setMarketingTag(entity.getMarketingTag());
+		dto.setActive(entity.isActive());
+		return dto;
 	}
 
 	private Map<String, String> getMarketingTagsAsMap() {

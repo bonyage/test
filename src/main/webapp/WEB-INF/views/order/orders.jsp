@@ -85,8 +85,8 @@
 						<td><joda:format value="${order.orderDate}" style="M-" /></td>
 						<td >
 							<c:if test="${order.status.name() != 'CANCELED' }">
-							  <a href="<c:url value='orders/modify/${order.id}'/>" class="btn btn-primary btn-sm">Modify</a>
-							  <a href="<c:url value='orders/cancel/${order.id}'/>" class="btn btn-warning btn-sm">Cancel</a>
+							  <a href="<c:url value='/orders/modify/${order.id}'/>" class="btn btn-primary btn-sm">Modify</a>
+							  <a href="<c:url value='/orders/cancel/${order.id}'/>" class="btn btn-warning btn-sm">Cancel</a>
 							</c:if>
 						</td>
 					</tr>

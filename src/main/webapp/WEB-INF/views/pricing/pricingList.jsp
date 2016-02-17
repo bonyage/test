@@ -26,22 +26,15 @@
 			<table class="table table-striped table-bordered bootstrap-datatable datatable">
 				<thead>
 				<tr>
+					<th>ID</th>
 					<th><spring:message code="pricing.list.header.productName"/></th>
-					<th><spring:message code="pricing.list.header.status"/></th>
-					<th><spring:message code="pricing.list.header.action"/></th>
 				</tr>
 				</thead>
 				<tbody>
 				<c:forEach var="product" items="${allProducts}">
 					<tr>
-						<td><c:out value="${product.name}"/></td>
-						<td>
-							<c:choose>
-								<c:when test="${product.active}"><spring:message code="pricing.active"/></c:when>
-								<c:otherwise><spring:message code="pricing.archived"/></c:otherwise>
-							</c:choose>
-						</td>
-						<td><a href="<c:url value='/pricing/${product.id}'/>"><spring:message code="pricing.viewPricing"/></a></td>
+						<td><c:out value="${product.id}"/></td>
+						<td><a href="<c:url value='/pricing/${product.id}'/>"><c:out value="${product.name}"/></a></td>
 					</tr>
 				</c:forEach>
 				</tbody>

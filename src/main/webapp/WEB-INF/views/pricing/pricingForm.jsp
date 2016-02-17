@@ -8,15 +8,31 @@
     <h1><spring:message code="pricing.form.heading"/> - ${productName}</h1>
   </div>
   <div class="box-content">
-    <form:form id="newPriceForm" class="form-horizontal" modelAttribute="newPrice" action="${action}" method="POST">
+  	<c:if test="${mode eq 'new'}">
+  		<c:url value="/pricing/${productId}" var="url"/>
+  	</c:if>
+  	<c:if test="${mode eq 'update'}">
+  		<c:url value="/pricing/item/${priceId}" var="url"/>
+  	</c:if>
+  	
+    <form:form id="priceForm" class="form-horizontal" modelAttribute="priceDTO" action="${url}" method="POST">
       <form:hidden id="productId" path="productId"/>
+      <form:hidden id="priceId" path="priceId"/>
       <fieldset>
         <div class="control-group">
           <div class="control-label span1">
             <form:label path="baseUnitPrice" for="baseUnitPrice"><spring:message code="pricing.form.baseUnitPrice"/></form:label>
           </div>
           <div class="controls">
-            <form:input id="baseUnitPrice" path="baseUnitPrice" type="text" class="span9"/>
+            <form:input id="baseUnitPrice" path="baseUnitPrice" type="number" readonly="${mode eq 'update'}" class="span3"/>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="control-label span1">
+            <form:label path="marketingBaseUnitPrice" for="marketingBaseUnitPrice"><spring:message code="pricing.form.marketingBaseUnitPrice"/></form:label>
+          </div>
+          <div class="controls">
+            <form:input id="marketingBaseUnitPrice" path="marketingBaseUnitPrice" readonly="${mode eq 'update'}" type="number" class="span3"/>
           </div>
         </div>
         <div class="control-group">
@@ -27,40 +43,61 @@
             <form:select id="marketingTag" path="marketingTag" items="${marketingTags}" class="span2"/>
           </div>
         </div>
+        <div class="control-group">
+          <div class="control-label span1">
+            <form:label path="active" for="active"><spring:message code="pricing.form.active"/></form:label>
+          </div>
+          <div class="controls">
+            <form:checkbox id="active" path="active" class="span9"/>                    
+          </div>
+        </div>
 
         <div class="form-actions">
-          <input type="submit" class="btn btn-success btn-large" value="<spring:message code="pricing.save"/>" />
-          <a class="btn" href="<c:url value="/pricing/list"/>"><spring:message code="pricing.cancel"/></a>
+        <c:if test="${mode eq 'new'}">
+          <input type="submit" class="btn btn-success btn-large" value="<spring:message code="pricing.create"/>" />
+          <a class="btn" href="<c:url value="/pricing/list"/>"><spring:message code="pricing.cancel"/></a>        
+        </c:if>
+        <c:if test="${mode eq 'update'}">
+          <input type="submit" class="btn btn-success btn-large" value="<spring:message code="pricing.update"/>" />
+          <a class="btn" href="<c:url value="/pricing/${productId}"/>"><spring:message code="pricing.cancel"/></a>        
+        </c:if>
+        
         </div>
       </fieldset>
     </form:form>
   </div>
 
-  <div class="box-content">
-    <table class="table table-striped table-bordered">
-      <thead>
-      <tr>
-        <th><spring:message code="pricing.history.effectiveForm"/></th>
-        <th><spring:message code="pricing.history.baseUnitPrice"/></th>
-        <th><spring:message code="pricing.history.marketingTag"/></th>
-        <th><spring:message code="pricing.history.status"/></th>
-      </tr>
-      </thead>
-      <tbody>
-      <c:forEach var="price" items="${allPrices}">
-        <tr>
-          <td><c:out value="${price.effectiveFrom}"/></td>
-          <td><c:out value="${price.baseUnitPrice}"/></td>
-          <td><c:out value="${price.marketingTag.description}"/></td>
-          <td>
-            <c:choose>
-              <c:when test="${price.active}"><spring:message code="pricing.active"/></c:when>
-              <c:otherwise><spring:message code="pricing.archived"/></c:otherwise>
-            </c:choose>
-          </td>
-        </tr>
-      </c:forEach>
-      </tbody>
-    </table>
-  </div>
+	<c:if test="${not empty allPrices}">
+	  <div class="box-content">
+	    <table class="table table-striped table-bordered">
+	      <thead>
+	      <tr>
+	        <th><spring:message code="pricing.history.id"/></th>
+	        <th><spring:message code="pricing.history.effectiveForm"/></th>
+	        <th><spring:message code="pricing.history.baseUnitPrice"/></th>
+	        <th><spring:message code="pricing.history.marketingBaseUnitPrice"/></th>
+	        <th><spring:message code="pricing.history.marketingTag"/></th>
+	        <th><spring:message code="pricing.history.status"/></th>
+	      </tr>
+	      </thead>
+	      <tbody>
+	      <c:forEach var="price" items="${allPrices}">
+	        <tr>
+	          <td><a href="<c:url value="/pricing/item/${price.priceId}"/>"><c:out value="${price.priceId}"/></a></td>
+	          <td><c:out value="${price.effectiveFrom}"/></td>
+	          <td><c:out value="${price.baseUnitPrice}"/></td>
+	          <td><c:out value="${price.marketingBaseUnitPrice}"/></td>
+	          <td><c:out value="${price.marketingTag.description}"/></td>
+	          <td>
+	            <c:choose>
+	              <c:when test="${price.active}"><spring:message code="common.yes"/></c:when>
+	              <c:otherwise><spring:message code="common.no"/></c:otherwise>
+	            </c:choose>
+	          </td>
+	        </tr>
+	      </c:forEach>
+	      </tbody>
+	    </table>
+	  </div>	
+	</c:if>
 </div>
