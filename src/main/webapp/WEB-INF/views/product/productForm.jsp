@@ -43,6 +43,30 @@
                     <form:textarea id="marketingText" path="marketingText" class="span9" cols="40" rows="5"></form:textarea>
                 </div>
             </div>
+          	<div class="control-group">
+                <div class="control-label span1">
+                    <form:label path="productVolume" for="productVolume"><spring:message code="product.form.productVolume"/></form:label>
+                </div>
+                <div class="controls">
+                    <form:input id="productVolume" path="productVolume" type="text" class="span9"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="control-label span1">
+                    <form:label path="productWeight" for="productWeight"><spring:message code="product.form.productWeight"/></form:label>
+                </div>
+                <div class="controls">
+                    <form:input id="productWeight" path="productWeight" type="text" class="span9"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="control-label span1">
+                    <form:label path="productSpecification" for="productSpecification"><spring:message code="product.form.productSpecification"/></form:label>
+                </div>
+                <div class="controls">
+                    <form:input id="productSpecification" path="productSpecification" type="text" class="span9"/>
+                </div>
+            </div>
             <div class="control-group">
                 <div class="control-label span1">
                     <form:label path="sku" for="sku"><spring:message code="product.form.sku"/></form:label>

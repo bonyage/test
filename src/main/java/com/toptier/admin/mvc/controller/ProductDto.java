@@ -14,6 +14,9 @@ public class ProductDto {
     private String shortDescription;
     private String longDescription;
     private String marketingText;
+    private String productWeight;
+    private String productVolume;
+    private String productSpecification;
     private boolean active;
     private String iconImageKey;
     private String frontSmallImageKey;
@@ -81,7 +84,31 @@ public class ProductDto {
     public void setMarketingText(String marketingText) {
         this.marketingText = marketingText;
     }
+    
+    public String getProductVolume() {
+        return productVolume;
+    }
 
+    public void setProductVolume(String productVolume) {
+        this.productVolume = productVolume;
+    }
+
+    public String getProductWeight() {
+        return productWeight;
+    }
+
+    public void setProductWeight(String productWeight) {
+        this.productWeight = productWeight;
+    }
+    
+    public String getProductSpecification() {
+        return productSpecification;
+    }
+
+    public void setProductSpecification(String productSpecification) {
+        this.productSpecification = productSpecification;
+    }
+    
     public boolean isActive() {
         return active;
     }

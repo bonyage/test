@@ -88,6 +88,9 @@ public class ProductController {
         product.setShortDescription(dto.getShortDescription());
         product.setLongDescription(dto.getLongDescription());
         product.setMarketingText(dto.getMarketingText());
+        product.setProductVolume(dto.getProductVolume());
+        product.setProductWeight(dto.getProductWeight());
+        product.setProductWeight(dto.getProductSpecification());
         product.setSku(dto.getSku());
         product.setActive(dto.isActive());
 
@@ -115,6 +118,9 @@ public class ProductController {
         dto.setShortDescription(product.getShortDescription());
         dto.setLongDescription(product.getLongDescription());
         dto.setMarketingText(product.getMarketingText());
+        dto.setProductVolume(product.getProductVolume());
+        dto.setProductWeight(product.getProductWeight());
+        dto.setProductSpecification(product.getProductSpecification());
         dto.setSku(product.getSku());
         dto.setActive(product.isActive());
 
