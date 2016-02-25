@@ -61,6 +61,10 @@
 	<definition name="administration.editUser" extends="defaultTemplate">
 		<put-attribute name="body"	value="/WEB-INF/views/admin/user.jsp" />
 	</definition>
+	
+	<definition name="customer.list" extends="defaultTemplate">
+		<put-attribute name="body"	value="/WEB-INF/views/customer/customerList.jsp" />
+	</definition>
 
 	<definition name="403" extends="defaultTemplate">
 		<put-attribute name="body"	value="/WEB-INF/views/403.jsp" />

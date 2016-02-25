@@ -22,6 +22,6 @@
                 <li><a class="submenu" href="${home}orders?orderStatus=">><i class="icon-list-alt"></i><span class="hidden-tablet"> Orders</span></a></li>
             </ul>
         </li>
-        <li><a href="${home}agent/list"><i class="icon-user"></i><span class="hidden-tablet"> Agent</span></a></li>
+        <li><a href="${home}customer/list"><i class="icon-user"></i><span class="hidden-tablet"> Customer</span></a></li>
     </ul>
 </div>
