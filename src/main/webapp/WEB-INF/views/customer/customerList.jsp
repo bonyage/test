@@ -30,16 +30,18 @@
 						<th><spring:message code="customer.list.header.customerName"/></th>
 						<th><spring:message code="customer.list.header.email"/></th>
 						<th><spring:message code="customer.list.header.phone"/></th>
+						<th><spring:message code="customer.list.header.address"/></th>
 						<th><spring:message code="customer.list.header.action"/></th>
 					</tr>
 				</thead>
 				<tbody>
 				<c:forEach var="customer" items="${allCustomers}">
 					<tr>
-						<td><c:out value="${customer.name}"/></td>
+						<td><c:out value="${customer.customerName}"/></td>
 						<td><c:out value="${customer.email}"/></td>
 						<td><c:out value="${customer.phone}"/></td>
-						<td><a href="<c:url value='/customer/${customer.id}'/>"><spring:message code="customer.edit"/></a></td>
+						<td><c:out value="${customer.region},${customer.addrlines},${customer.postcode}"/></td>
+						<td><a href="<c:url value='/customer/${customer.customerId}'/>"><spring:message code="customer.edit"/></a></td>
 					</tr>
 				</c:forEach>
 				</tbody>
