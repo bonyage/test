@@ -19,6 +19,10 @@
 		<put-attribute name="pageSpecificJavascript" value="/WEB-INF/views/product/productFormJavaScript.jsp" />
     </definition>
 
+	<definition name="customer.form" extends="defaultTemplate">
+	    <put-attribute name="body"	value="/WEB-INF/views/customer/customerForm.jsp" />
+	</definition>
+	
 	<definition name="agent.list" extends="defaultTemplate">
 	    <put-attribute name="body"	value="/WEB-INF/views/agent/agentList.jsp" />
 	</definition>
@@ -58,12 +62,17 @@
 	<definition name="administration.addUser" extends="defaultTemplate">
 		<put-attribute name="body"	value="/WEB-INF/views/admin/user.jsp" />
 	</definition>
+	
 	<definition name="administration.editUser" extends="defaultTemplate">
 		<put-attribute name="body"	value="/WEB-INF/views/admin/user.jsp" />
 	</definition>
 	
 	<definition name="customer.list" extends="defaultTemplate">
 		<put-attribute name="body"	value="/WEB-INF/views/customer/customerList.jsp" />
+	</definition>
+	
+	<definition name="customer.form" extends="defaultTemplate">
+		<put-attribute name="body"	value="/WEB-INF/views/customer/customerForm.jsp" />
 	</definition>
 
 	<definition name="403" extends="defaultTemplate">

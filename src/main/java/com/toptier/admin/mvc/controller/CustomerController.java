@@ -6,8 +6,8 @@ import com.toptier.core.model.Address;
 import com.toptier.core.model.Customer;
 import com.toptier.core.model.Inventory;
 import com.toptier.core.model.Product;
+import com.toptier.service.AddressService;
 import com.toptier.service.CustomerService;
-import com.toptier.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -32,6 +32,9 @@ public class CustomerController {
 
 	@Autowired
 	private CustomerService customerService;
+	
+	@Autowired
+	private AddressService addressService;
 
     @Autowired
     private MessageSource messageSource;
@@ -39,21 +42,31 @@ public class CustomerController {
 	@RequestMapping(value = { "/list" }, method = RequestMethod.GET)
 	public ModelAndView listAllProducts() {
 		List<Customer> allCustomers =  customerService.getAllCustomers();
-		List<Address> allAddressRecords = customerService.getAllAddressRecords();
+		List<Address> allAddressRecords = addressService.getAllAddressRecords();
 		List<CustomerAddressDto> customers = toDtos(allCustomers, allAddressRecords);
 		return new ModelAndView("customer.list", "allCustomers", customers);
 	}
 	
-	/*@RequestMapping(value = "/{customerId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{customerId}", method = RequestMethod.GET)
     public ModelAndView editCustomer(HttpServletRequest request, @PathVariable int customerId) {
-        Product product = customerService.getCustomer(customerId);
-        // TODO Deal with product == null
-        ModelAndView modelAndView = new ModelAndView("product.form");
-        modelAndView.addObject("heading", translatedMessage("product.form.heading.edit"));
-        modelAndView.addObject("action", updateProductUrl(request, productId));
-        modelAndView.addObject("product", toDto(product));
+        Customer customer = customerService.getCustomer(customerId);
+        // TODO Deal with customer == null
+        Address addressRecord = addressService.getAddressRecord(customerId);
+        ModelAndView modelAndView = new ModelAndView("customer.form");
+        modelAndView.addObject("heading", translatedMessage("customer.form.heading.edit"));
+        modelAndView.addObject("action", updateCustomerUrl(request, customerId));
+        modelAndView.addObject("customer", toDto(customer,addressRecord));
         return modelAndView;
-    }*/
+    }
+	
+	@RequestMapping(value = { "/{customerId}" }, method = RequestMethod.POST)
+	public ModelAndView modifyCustomer(@PathVariable int customerId, @ModelAttribute CustomerAddressDto dto) {
+		customerService.setCustomer(customerId, dto.getCustomerName(), dto.getEmail(), dto.getPhone());
+		addressService.setAddress(customerId,dto.getRegion(),dto.getAddrlines(),dto.getPostcode());
+        //addressService.saveUpdateAddress(customerId,dto.getRegion(),dto.getAddrlines(),dto.getPostcode());
+        return new ModelAndView("redirect:list");
+	}
+
 
 	private String translatedMessage(String key) {
 	    // TODO Perhaps refactor this into a proper class?
@@ -93,5 +106,8 @@ public class CustomerController {
 		return result;
 	}
 	
-    
+	private String updateCustomerUrl(HttpServletRequest request, int customerId) {
+	    return request.getContextPath() + "/customer/" + customerId;
+	}
+	  
 }
