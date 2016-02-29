@@ -6,12 +6,14 @@ import com.toptier.core.model.Address;
 import com.toptier.core.model.Customer;
 import com.toptier.core.model.Inventory;
 import com.toptier.core.model.Product;
+import com.toptier.dto.UserDto;
 import com.toptier.service.AddressService;
 import com.toptier.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,10 +65,25 @@ public class CustomerController {
 	public ModelAndView modifyCustomer(@PathVariable int customerId, @ModelAttribute CustomerAddressDto dto) {
 		customerService.setCustomer(customerId, dto.getCustomerName(), dto.getEmail(), dto.getPhone());
 		addressService.setAddress(customerId,dto.getRegion(),dto.getAddrlines(),dto.getPostcode());
-        //addressService.saveUpdateAddress(customerId,dto.getRegion(),dto.getAddrlines(),dto.getPostcode());
         return new ModelAndView("redirect:list");
 	}
 
+	@RequestMapping(value = "/new", method = RequestMethod.GET)
+    public ModelAndView newProductForm(HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView("customer.form");
+        modelAndView.addObject("heading", translatedMessage("customer.form.heading.edit"));
+        modelAndView.addObject("action", addNewCustomerUrl(request));
+        modelAndView.addObject("customer", new CustomerAddressDto());
+        return modelAndView;
+    }
+	
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+    public ModelAndView addNewProduct(@ModelAttribute CustomerAddressDto dto) {
+		customerService.saveCustomer(dto.getCustomerName(), dto.getEmail(), dto.getPhone());
+		int customerId = customerService.getIdByPhone(dto.getPhone());
+		addressService.saveAddress(customerId,dto.getRegion(),dto.getAddrlines(),dto.getPostcode());
+        return new ModelAndView("redirect:list");
+    }
 
 	private String translatedMessage(String key) {
 	    // TODO Perhaps refactor this into a proper class?
@@ -101,7 +118,7 @@ public class CustomerController {
 	private Map<Integer, Address> generateAddressRecordLookup(List<Address> allAddressRecords) {
 		Map<Integer, Address> result = new HashMap<>();
 		for (Address addressRecord : allAddressRecords) {
-			result.put(addressRecord.getId(), addressRecord);
+			result.put(addressRecord.getCustomerID(), addressRecord);
 		}
 		return result;
 	}
@@ -109,5 +126,10 @@ public class CustomerController {
 	private String updateCustomerUrl(HttpServletRequest request, int customerId) {
 	    return request.getContextPath() + "/customer/" + customerId;
 	}
+	
+	private String addNewCustomerUrl(HttpServletRequest request) {
+        return request.getContextPath() + "/customer/";
+    }
+
 	  
 }
