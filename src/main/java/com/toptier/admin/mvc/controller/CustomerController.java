@@ -9,6 +9,8 @@ import com.toptier.core.model.Product;
 import com.toptier.dto.UserDto;
 import com.toptier.service.AddressService;
 import com.toptier.service.CustomerService;
+import com.toptier.service.PersonService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -40,31 +42,41 @@ public class CustomerController {
 
     @Autowired
     private MessageSource messageSource;
+    
+    @Autowired
+    private PersonService personService;
 
 	@RequestMapping(value = { "/list" }, method = RequestMethod.GET)
 	public ModelAndView listAllProducts() {
 		List<Customer> allCustomers =  customerService.getAllCustomers();
-		List<Address> allAddressRecords = addressService.getAllAddressRecords();
-		List<CustomerAddressDto> customers = toDtos(allCustomers, allAddressRecords);
-		return new ModelAndView("customer.list", "allCustomers", customers);
+		return new ModelAndView("customer.list", "allCustomers", allCustomers);
 	}
 	
 	@RequestMapping(value = "/{customerId}", method = RequestMethod.GET)
     public ModelAndView editCustomer(HttpServletRequest request, @PathVariable int customerId) {
         Customer customer = customerService.getCustomer(customerId);
         // TODO Deal with customer == null
-        Address addressRecord = addressService.getAddressRecord(customerId);
         ModelAndView modelAndView = new ModelAndView("customer.form");
         modelAndView.addObject("heading", translatedMessage("customer.form.heading.edit"));
         modelAndView.addObject("action", updateCustomerUrl(request, customerId));
-        modelAndView.addObject("customer", toDto(customer,addressRecord));
+       modelAndView.addObject("customerAddress", customer);
         return modelAndView;
     }
 	
 	@RequestMapping(value = { "/{customerId}" }, method = RequestMethod.POST)
-	public ModelAndView modifyCustomer(@PathVariable int customerId, @ModelAttribute CustomerAddressDto dto) {
-		customerService.setCustomer(customerId, dto.getCustomerName(), dto.getEmail(), dto.getPhone());
-		addressService.setAddress(customerId,dto.getRegion(),dto.getAddrlines(),dto.getPostcode());
+	public ModelAndView modifyCustomer(@PathVariable int customerId, @ModelAttribute Customer dto) {
+		Customer customer = customerService.getCustomer(customerId);
+		customer.setName(dto.getName());
+		customer.setEmail(dto.getEmail());
+		customer.setPhone(dto.getPhone());		
+		
+		Address address = customer.getAddress();
+		address.setRegion(dto.getAddress().getRegion());
+		address.setAddrLines(dto.getAddress().getAddrLines());
+		address.setPostcode(dto.getAddress().getPostcode());
+		address.setCustomer(customer);
+		
+		personService.saveCustomer(customer);
         return new ModelAndView("redirect:list");
 	}
 
@@ -73,15 +85,25 @@ public class CustomerController {
         ModelAndView modelAndView = new ModelAndView("customer.form");
         modelAndView.addObject("heading", translatedMessage("customer.form.heading.edit"));
         modelAndView.addObject("action", addNewCustomerUrl(request));
-        modelAndView.addObject("customer", new CustomerAddressDto());
+        modelAndView.addObject("customerAddress", new Customer());
         return modelAndView;
     }
 	
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-    public ModelAndView addNewProduct(@ModelAttribute CustomerAddressDto dto) {
-		customerService.saveCustomer(dto.getCustomerName(), dto.getEmail(), dto.getPhone());
-		int customerId = customerService.getIdByPhone(dto.getPhone());
-		addressService.saveAddress(customerId,dto.getRegion(),dto.getAddrlines(),dto.getPostcode());
+    public ModelAndView addNewProduct(@ModelAttribute Customer dto) {
+		Customer customer = new Customer();
+		customer.setName(dto.getName());
+		customer.setEmail(dto.getEmail());
+		customer.setPhone(dto.getPhone());		
+		
+		Address address = new Address();
+		address.setRegion(dto.getAddress().getRegion());
+		address.setAddrLines(dto.getAddress().getAddrLines());
+		address.setPostcode(dto.getAddress().getPostcode());
+		address.setCustomer(customer);
+		
+		personService.saveCustomer(customer);
+		addressService.saveAddress(address);
         return new ModelAndView("redirect:list");
     }
 
@@ -90,37 +112,6 @@ public class CustomerController {
 	    // See: http://stackoverflow.com/questions/6246381/getting-localized-message-from-resourcebundle-via-annotations-in-spring-framewor
 	    Locale locale = LocaleContextHolder.getLocale();
 	    return messageSource.getMessage(key, new Object[0], locale);
-	}
-	
-	private List<CustomerAddressDto> toDtos(List<Customer> allCustomers, List<Address> allAddressRecords) {
-		Map<Integer, Address> addressRecordLookup = generateAddressRecordLookup(allAddressRecords);
-        List<CustomerAddressDto> result = new ArrayList<>();
-        for (Customer customer : allCustomers) {
-			Address addressRecord = addressRecordLookup.get(customer.getId());
-			CustomerAddressDto dto = toDto(customer, addressRecord);
-            result.add(dto);
-        }
-        return result;
-    }
-	
-	private CustomerAddressDto toDto(Customer customer, Address addressRecord) {
-        CustomerAddressDto dto = new CustomerAddressDto();
-        dto.setCustomerId(customer.getId());
-        dto.setCustomerName(customer.getName());
-        dto.setEmail(customer.getEmail());
-        dto.setPhone(customer.getPhone());
-        dto.setRegion(addressRecord.getRegion());
-        dto.setAddrlines(addressRecord.getAddrLines());
-        dto.setPostcode(addressRecord.getPostcode());
-		return dto;
-    }
-	
-	private Map<Integer, Address> generateAddressRecordLookup(List<Address> allAddressRecords) {
-		Map<Integer, Address> result = new HashMap<>();
-		for (Address addressRecord : allAddressRecords) {
-			result.put(addressRecord.getCustomerID(), addressRecord);
-		}
-		return result;
 	}
 	
 	private String updateCustomerUrl(HttpServletRequest request, int customerId) {

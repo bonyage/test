@@ -23,5 +23,6 @@
             </ul>
         </li>
         <li><a href="${home}customer/list"><i class="icon-user"></i><span class="hidden-tablet"> Customer</span></a></li>
+        <li><a href="${home}customer/list"><i class="icon-credit-card"></i><span class="hidden-tablet"> Coupon</span></a></li>
     </ul>
 </div>

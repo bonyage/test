@@ -7,15 +7,15 @@
     <div class="page-header">
         <h1>${heading}</h1>
     </div>
-    <form:form id="customerForm" class="form-horizontal" modelAttribute="customer" action="${action}" method="POST">
-        <form:hidden id="customerId" path="customerId"/>
+    <form:form id="customerForm" class="form-horizontal" modelAttribute="customerAddress" action="${action}" method="POST">
+        <form:hidden id="customerId" path="id"/>
         <fieldset>
             <div class="control-group">
                 <div class="control-label span1">
-                    <form:label path="customerName" for="customerName"><spring:message code="customer.form.name"/></form:label>
+                    <form:label path="name" for="name"><spring:message code="customer.form.name"/></form:label>
                 </div>
                 <div class="controls">
-                    <form:input id="customerName" path="customerName" type="text" class="span9"/>
+                    <form:input id="name" path="name" type="text" class="span9"/>
                 </div>
             </div>
             <div class="control-group">
@@ -36,26 +36,26 @@
             </div>
             <div class="control-group">
                 <div class="control-label span1">
-                    <form:label path="region" for="region"><spring:message code="customer.form.region"/></form:label>
+                    <form:label path="address.region" for="address.region"><spring:message code="customer.form.region"/></form:label>
                 </div>
                 <div class="controls">
-                    <form:input id="region" path="region" type="text" class="span9"/>
+                    <form:input id="region" path="address.region" type="text" class="span9"/>
                 </div>
             </div>
              <div class="control-group">
                 <div class="control-label span1">
-                    <form:label path="addrlines" for="addrlines"><spring:message code="customer.form.addrlines"/></form:label>
+                    <form:label path="address.addrLines" for="address.addrLines"><spring:message code="customer.form.addrlines"/></form:label>
                 </div>
                 <div class="controls">
-                    <form:textarea id="addrlines" path="addrlines" class="span9" cols="40" rows="5"></form:textarea>
+                    <form:textarea id="addrlines" path="address.addrLines" class="span9" cols="40" rows="5"></form:textarea>
                 </div>
             </div>
            	<div class="control-group">
                 <div class="control-label span1">
-                    <form:label path="postcode" for="postcode"><spring:message code="customer.form.postcode"/></form:label>
+                    <form:label path="address.postcode" for="address.postcode"><spring:message code="customer.form.postcode"/></form:label>
                 </div>
                 <div class="controls">
-                    <form:input id="postcode" path="postcode" type="text" class="span9"/>
+                    <form:input id="postcode" path="address.postcode" type="text" class="span9"/>
                 </div>
             </div>
             <div class="form-actions">
